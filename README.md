@@ -8,16 +8,16 @@
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/nada1221"><img src="https://avatars.githubusercontent.com/u/104189107?v=4" width="100px;" alt=""/><br /><sub><b>고동욱</b></sub><br /></a><br /></td>
-      <td align="center"><a href="https://github.com/Jaihun-Kim"><img src="https://avatars.githubusercontent.com/u/107912376?v=4" width="100px;" alt=""/><br /><sub><b>김재훈</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/jioneee"><img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="100px;" alt=""/><br /><sub><b>이지원</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Jaihun-Kim"><img src="https://avatars.githubusercontent.com/u/107912376?v=4" width="100px;" alt=""/><br /><sub><b>김재훈</b></sub><br /></a><br /></td>
+      <td align="center"><a href="https://github.com/jioneee"><img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="100px;" alt=""/><br /><sub><b>이지원</b></sub><br /></a><br /></td>
     </tr>
     <tr>
-      <td align="center"><a href="https://github.com/JoHyunho-clover"><img src="https://avatars.githubusercontent.com/u/78728072?v=4" width="100px;" alt=""/><br /><sub><b>조현호</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/kosmos992"><img src="https://avatars.githubusercontent.com/u/81802993?v=4" width="100px;" alt=""/><br /><sub><b>구예찬</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/redchicken97"><img src="https://avatars.githubusercontent.com/u/108041993?v=4" width="100px;" alt=""/><br /><sub><b>이하빈</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/JoHyunho-clover"><img src="https://avatars.githubusercontent.com/u/78728072?v=4" width="100px;" alt=""/><br /><sub><b>조현호</b></sub><br /></a><br /></td>
+      <td align="center"><a href="https://github.com/kosmos992"><img src="https://avatars.githubusercontent.com/u/81802993?v=4" width="100px;" alt=""/><br /><sub><b>구예찬</b></sub><br /></a><br /></td>
+      <td align="center"><a href="https://github.com/redchicken97"><img src="https://avatars.githubusercontent.com/u/108041993?v=4" width="100px;" alt=""/><br /><sub><b>이하빈</b></sub><br /></a><br /></td>
     </tr>
     <tr>
-      <td align="center"><a href="https://github.com/YeryunJung"><img src="https://avatars.githubusercontent.com/u/103527404?v=4" width="100px;" alt=""/><br /><sub><b>정예륜</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/YeryunJung"><img src="https://avatars.githubusercontent.com/u/103527404?v=4" width="100px;" alt=""/><br /><sub><b>정예륜</b></sub><br /></a><br /></td>
      </tr>
   </tbody>
 </table>
