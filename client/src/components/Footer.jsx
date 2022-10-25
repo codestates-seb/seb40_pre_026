@@ -40,9 +40,6 @@ const FooterContentLineHead = styled.div`
   justify-content: space-between;
   align-content: space-between;
 `;
-const FooterContents = styled.div`
-  color: white;
-`;
 const TopLine = styled.div`
   display: flex;
   color: white;
