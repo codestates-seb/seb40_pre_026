@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import LogoSrc from '../image/SOFLogo.png';
 
 const FooterContain = styled.div`
-  position: absolute;
+  position: relative;
   bottom: 0px;
   width: 100%;
   display: flex;

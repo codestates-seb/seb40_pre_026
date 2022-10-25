@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import icon from '../image/github.png';
-import SignUp from './signup';
 
 const SignUpContain = styled.div`
   margin-top: 100px;

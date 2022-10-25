@@ -40,6 +40,7 @@ const UsualLogin = styled.button`
   border-radius: 3px;
   outline: none;
   font-family: inherit;
+  font-size: 13px;
   font-weight: normal;
   line-height: calc((13+2) / 13);
   text-align: center;
