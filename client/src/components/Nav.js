@@ -105,11 +105,6 @@ const SearchContainer = styled.div`
     top: 5px;
   }
 `;
-const SearchModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-`;
 const SearchInput = styled.input`
   box-sizing: border-box;
   margin: 0px 10px;
@@ -128,45 +123,55 @@ const SearchInput = styled.input`
   }
   font-size: 15px;
 `;
-
-const ModalContainer = styled.div`
-  box-sizing: border-box;
-  margin-top: 180px;
-  margin-left: 5px;
-  padding: 0px 5px;
-  height: 180px;
-  width: 900px;
-  background: gray;
-  border-color: hsl(210, 8%, 75%);
+const SearchItemContainer = styled.div`
   display: flex;
-  color: hsl(210, 8%, 25%);
-  padding: 12px;
-`;
-const ModalView = styled.div`
-  /* display: flex; */
-  text-align: left;
-  /* justify-content: center; */
-  margin-top: 5px;
-  margin-left: 30px;
-  color: black;
-  background: #eee;
-  height: 120px;
-  width: 900px;
-  padding: 8px 20px;
-  border-radius: 20px;
-  > div {
-    margin-left: 10px;
-  }
-  > .first {
-    color: black;
-    padding-top: 44px;
-  }
-  > .second {
-    color: gray;
-    padding-top: 30px;
-  }
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 0px;
+  width: 700px;
+  height: 250px;
+  background-color: transparent;
 `;
 
+const SearchItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  margin-left: 10px;
+  padding: 0px;
+  width: 700px;
+  height: 180px;
+  background-color: white;
+  border-color: black;
+  border-radius: 7px 7px 0px 0px;
+  box-shadow: 0px 0px 0px 2px hsl(210, 8%, 90%);
+  .first {
+    list-style: none;
+    text-align: left;
+    color: black;
+  }
+  .second {
+    list-style: none;
+    text-align: left;
+    color: black;
+  }
+  .small_hint {
+    color: gray;
+  }
+`;
+const SearchItem_bottom = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+  padding: 10px;
+  width: 700px;
+  height: 52px;
+  color: #0074cc;
+  box-shadow: 0px 0px 0px 2px hsl(210, 8%, 90%);
+  border-top: 0px;
+  border-radius: 0px 0px 7px 7px;
   .questionBtn {
     background-color: hsl(205, 46%, 92%);
     color: hsl(205, 47%, 42%);
@@ -206,9 +211,8 @@ const LoginBtn = styled.button`
 `;
 
 const SignupBtn = styled.button`
-  text-align: center;
   margin: 0px 0px 0px 4px;
-  padding: 10px;
+  padding: 5px;
   font-weight: 500;
   width: 69px;
   height: 33px;
@@ -219,7 +223,6 @@ const SignupBtn = styled.button`
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
-  /* user-select: none; */
   &:hover {
     background-color: hsl(205, 47%, 42%);
     font-size: 13px;
@@ -229,19 +232,19 @@ const SignupBtn = styled.button`
 function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   return (
     <NavContainer>
-      <FlowLogo src={stackoverflow_logo} alt="logo" />
-      <BtnContainer>
-        <AboutBtn>About</AboutBtn>
-        <ProductsBtn>Products</ProductsBtn>
-        <ForTeamsBtn>For Teams</ForTeamsBtn>
-      </BtnContainer>
-      <SearchModalContainer>
+      <NavBoxCotain>
+        <FlowLogo src={stackoverflow_logo} alt="logo" />
+        <BtnContainer>
+          <AboutBtn>About</AboutBtn>
+          <ProductsBtn>Products</ProductsBtn>
+          <ForTeamsBtn>For Teams</ForTeamsBtn>
+        </BtnContainer>
         <SearchContainer>
           <img src={MagnifyingGlass} alt="searchicon" />
           <SearchInput
             type="text"
             placeholder="Search..."
-            onClick={openModalHandler}
+            onClick={ModalItem}
           />
           {dropdownIsOpen ? (
             <SearchItemContainer>

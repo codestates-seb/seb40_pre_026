@@ -55,7 +55,6 @@ const Card = styled.div`
 const LogoutButton = styled.button`
   position: relative;
   display: inline-block;
-
   padding: 0.8em;
   border: 1px solid transparent;
   border-radius: 3px;
