@@ -49,9 +49,9 @@ const UsualLogin = styled.button`
   background-color: hsl(206, 100%, 52%);
   color: white;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
-  /* &: hover {
+  &:hover {
     background-color: hsl(209, 100%, 37.5%);
-  } */
+  }
 `;
 
 const Icon = styled.img`
