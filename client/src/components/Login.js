@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import icon from '../github.png';
+import icon from '../image/github.png';
 import logo from '../SOFLogo.png';
 
 const Container = styled.div`

@@ -1,10 +1,14 @@
 import React from 'react';
 import Users from './components/Users';
+import './App.css';
+import Footer from './components/Footer';
+import SignUpPage from './components/signup';
 
 function App() {
   return (
     <div>
-      <Users></Users>
+      <SignUpPage />
+      {/* <Footer /> */}
     </div>
   );
 }
