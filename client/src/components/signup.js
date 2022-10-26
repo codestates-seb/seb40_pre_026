@@ -127,7 +127,7 @@ const PW = styled.div`
   margin: 10px 0;
 `;
 
-const SignUpPage = () => {
+const Signup = () => {
   return (
     <SignUpContain>
       <LeftContain>
@@ -182,4 +182,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default Signup;
