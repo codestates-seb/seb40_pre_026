@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import icon from '../image/github.png';
 
 const SignUpContain = styled.div`
-  margin-top: 100px;
+  /* margin-top: 100px; */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -14,7 +14,9 @@ const SignUpContain = styled.div`
 const LeftContain = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 220px 48px 120px 0;
+  justify-content: center;
+  margin: 0 48px 0 0;
+  /* margin: 220px 48px 120px 0; */
 `;
 
 const ContainHeader = styled.h1`
@@ -68,11 +70,15 @@ const Icon = styled.img`
 const SignUpBox = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 7px;
   border: none;
   padding: 10px 20px 50px 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  background-color: white;
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
+    0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
+  margin-bottom: 16px;
 `;
+
 const SignUpHead = styled.div`
   font-size: medium;
   font-weight: 500;
@@ -127,6 +133,20 @@ const PW = styled.div`
   margin: 10px 0;
 `;
 
+const P = styled.p`
+  flex: 1 auto;
+  text-align: center;
+  font-size: 13px;
+`;
+
+const A = styled.a`
+  text-decoration: none;
+  color: hsl(206, 100%, 40%);
+  cursor: pointer;
+  user-select: auto;
+  font-size: 12px;
+`;
+
 const Signup = () => {
   return (
     <SignUpContain>
@@ -177,6 +197,9 @@ const Signup = () => {
             privacy policy and cookie policy
           </InputInfo>
         </SignUpBox>
+        <P>
+          Already have an account? <A href="url">Log in</A>
+        </P>
       </RightContain>
     </SignUpContain>
   );

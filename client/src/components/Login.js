@@ -76,6 +76,7 @@ const Card = styled.div`
   box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
     0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
   padding: 24px;
+  margin-bottom: 16px;
 `;
 
 const Form = styled.form`
