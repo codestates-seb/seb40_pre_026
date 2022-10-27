@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const RenderContain = styled.div`
+  padding-top: 72px;
   display: flex;
   flex-direction: row;
   margin-left: 180px;

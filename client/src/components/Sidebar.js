@@ -13,7 +13,7 @@ const SidebarContainer = styled.nav`
   background-color: #fff;
   width: 180px;
   /* padding: 20px 0px 10px 10px; */
-  margin-top: 10px;
+  margin-top: 70px;
   /* margin-left: 110px; */
   position: fixed;
   height: 500px;

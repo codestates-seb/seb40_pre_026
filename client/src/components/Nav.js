@@ -11,7 +11,7 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: center; */
   box-sizing: border-box;
-  position: relative;
+  position: fixed;
   margin: 0px;
   width: 100%;
   display: flex;

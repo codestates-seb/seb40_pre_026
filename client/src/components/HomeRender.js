@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const RenderContain = styled.div`
   display: flex;
   flex-direction: row;
+  padding-top: 72px;
   margin-left: 180px;
   width: 80%;
   height: 100%;
