@@ -11,7 +11,7 @@ import {
 
 const SidebarContainer = styled.nav`
   background-color: #fff;
-  width: 220px;
+  width: 240px;
   padding: 20px 0px 10px 10px;
   margin: 0;
   position: fixed;
