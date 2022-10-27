@@ -108,8 +108,16 @@ const MainRender = styled.div`
 `;
 const LastComment = styled.div`
   text-align: start;
-  margin: 20px;
+  margin: 30px;
+  font-size: 17px;
 `;
+const RenderLeft = styled.div``;
+const Votes = styled.div``;
+const SmallText = styled.div``;
+const RenderRight = styled.div``;
+const QuestionHeader = styled.div``;
+const QuestionContent = styled.div``;
+const Tags = styled.div``;
 
 const RenderPage = () => {
   //   const [userCount, setUserCount] = useEffect('');
@@ -131,12 +139,18 @@ const RenderPage = () => {
           <RightOptionBtn>Month</RightOptionBtn>
         </RenderSubHead>
         <MainRenderSpace>
-          <MainRender>render space</MainRender>
-          <MainRender>render space</MainRender>
-          <MainRender>render space</MainRender>
-          <MainRender>render space</MainRender>
-          <MainRender>render space</MainRender>
-          <MainRender>render space</MainRender>
+          <MainRender>
+            <RenderLeft>
+              <Votes>0 votes</Votes>
+              <SmallText>0 answers</SmallText>
+              <SmallText>2 views</SmallText>
+            </RenderLeft>
+            <RenderRight>
+              <QuestionHeader>Question Header</QuestionHeader>
+              <QuestionContent>Question Contents</QuestionContent>
+              <Tags>Tags</Tags>
+            </RenderRight>
+          </MainRender>
           <LastComment>
             Looking for more? Browse the complete list of questions, or popular
             tags. Help us answer unanswered
