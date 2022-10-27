@@ -82,6 +82,15 @@ const CancelButton = styled(LogoutButton)`
 `;
 
 const Logout = () => {
+  const logoutRequestHandler = () => {
+    return axios
+      .post('url/logout')
+      .then((res) => {
+        //TODO: redux, 로컬스토리지로 로그인 정보 초기화, 토큰 삭제
+        //이후 메인 화면으로 리다이렉트
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <Container>
       <Header>
@@ -103,7 +112,7 @@ const Logout = () => {
             <A>naver.com</A>
           </P>
         </PContainer>
-        <LogoutButton>Log out</LogoutButton>
+        <LogoutButton onClick={logoutRequestHandler}>Log out</LogoutButton>
         <CancelButton>Cancel</CancelButton>
         <Desc>
           If you&apos;re on a shared computer, remember to log out of your Open

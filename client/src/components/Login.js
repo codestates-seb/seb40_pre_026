@@ -129,7 +129,36 @@ const A = styled.a`
   font-size: 12px;
 `;
 
+// const [isLogin, setIsLogin] = useState(false) 리덕스로 관리
+
 const Login = () => {
+  const [loginInfo, setLoginInfo] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleInputValue = (key) => (e) => {
+    setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  };
+
+  const loginRequestHandler = () => {
+    if (!loginInfo.email || !loginInfo.password) {
+      alert('Email cannot be empty.'); //TODO: 추가 작업 필요
+      alert('Password cannot be empty.');
+      return;
+    }
+
+    return axios
+      .post('url/api', { loginInfo })
+      .then((res) => {
+        console.log(res);
+        //TODO: res로 받아온 user정보와 jwt토큰을 redux와 로컬스토리지로 처리해야 함
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+
   return (
     <Container>
       <P>
@@ -144,20 +173,31 @@ const Login = () => {
       </GitHubLogin>
 
       <Card>
-        <Form action="api/url/" method="POST">
+        <Form onSubmit={(e) => e.preventDefault()}>
           <InputContainer>
             <Label for="email">Email</Label>
-            <Input id="email" />
+            <Input
+              id="email"
+              type="text"
+              onChange={handleInputValue('email')}
+            />
           </InputContainer>
           <InputContainer>
             <PwLabelReset>
               <Label for="password">Password</Label>
               <A href="url">Forgot password?</A>
             </PwLabelReset>
-            <Input id="password" />
+            <Input
+              id="password"
+              type="password"
+              onChange={handleInputValue('password')}
+            />
           </InputContainer>
           <InputContainer>
-            <UsualLogin> Log in </UsualLogin>
+            <UsualLogin type="submit" onClick={loginRequestHandler}>
+              {' '}
+              Log in{' '}
+            </UsualLogin>
           </InputContainer>
         </Form>
       </Card>
