@@ -159,21 +159,16 @@ const Signup = () => {
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
     if (emailRule.test(emailValue) === false) {
-      alert(`${emailValue}is not a valid email address.`);
+      alert(`${emailValue} is not a valid email address.`);
       return;
     }
 
     let passwordRule = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{8,}$/;
 
     if (passwordRule.test(passwordValue) === false) {
-      alert(
-        `Please add one of the following things to make your password stronger:`
-      );
+      alert(`Password should contain one or more of letters and numbers`);
       return;
     }
-
-    // 패스워드 안보이게 띄우기  <--
-    // 경고장 인풋창에 띄우기
 
     const signupInfo = {
       nickname: nicknameValue,
