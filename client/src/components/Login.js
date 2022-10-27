@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
 import icon from '../image/github.png';
 import logo from '../SOFLogo.png';

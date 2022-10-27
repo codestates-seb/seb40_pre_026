@@ -1,6 +1,8 @@
-import React from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
 import icon from '../image/github.png';
+import useInput from './useInput';
+import axios from 'axios';
 
 const SignUpContain = styled.div`
   /* margin-top: 100px; */
@@ -148,6 +150,47 @@ const A = styled.a`
 `;
 
 const Signup = () => {
+  const [nicknameValue, nicknameBind, nicknameReset] = useInput('');
+  const [emailValue, emailBind, emailReset] = useInput('');
+  const [passwordValue, passwordBind, passwordReset] = useInput('');
+
+  const handleSumbit = () => {
+    let emailRule =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    if (emailRule.test(emailValue) === false) {
+      alert(`${emailValue}is not a valid email address.`);
+      return;
+    }
+
+    let passwordRule = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{8,}$/;
+
+    if (passwordRule.test(passwordValue) === false) {
+      alert(
+        `Please add one of the following things to make your password stronger:`
+      );
+      return;
+    }
+
+    // 패스워드 안보이게 띄우기  <--
+    // 경고장 인풋창에 띄우기
+
+    const signupInfo = {
+      nickname: nicknameValue,
+      email: emailValue,
+      pw: passwordValue,
+    };
+
+    axios.post('url/api', signupInfo).then((res) => {
+      console.log('Sign Up!');
+      console.log(res.data);
+    });
+
+    nicknameReset();
+    emailReset();
+    passwordReset();
+  };
+
   return (
     <SignUpContain>
       <LeftContain>
@@ -173,25 +216,25 @@ const Signup = () => {
         </GitHubLogin>
         <SignUpBox>
           <DN>
-            <SignUpHead for="DisplayName">Display name</SignUpHead>
-            <Input id="DisplayName" />
+            <SignUpHead htmlFor="DisplayName">Display name</SignUpHead>
+            <Input id="DisplayName" type="text" {...nicknameBind} />
           </DN>
           <EM>
             {' '}
-            <SignUpHead for="Email">Email</SignUpHead>
-            <Input id="Email" />
+            <SignUpHead htmlFor="Email">Email</SignUpHead>
+            <Input id="Email" type="text" {...emailBind} />
           </EM>
           <PW>
             {' '}
-            <SignUpHead for="Password">Password</SignUpHead>
-            <Input id="Password" />
+            <SignUpHead htmlFor="Password">Password</SignUpHead>
+            <Input id="Password" type="password" {...passwordBind} />
           </PW>
 
           <InputInfo>
             Passwords must contain at least eight <br /> characters, including
             at least 1 letter and 1 <br /> number.
           </InputInfo>
-          <UsualLogin> Sign up</UsualLogin>
+          <UsualLogin onClick={() => handleSumbit()}>Sign up</UsualLogin>
           <InputInfo>
             By clicking “Sign up”, you agree to our terms of <br /> service,
             privacy policy and cookie policy
