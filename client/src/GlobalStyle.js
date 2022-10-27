@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
   ${normalize}
 
   * {
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, monospace, sans-serif;
   }
 
