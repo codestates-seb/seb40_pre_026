@@ -11,8 +11,8 @@ const MainPage = () => {
     <>
       <Nav />
       <Sidebar />
-      {/* <HomeRender /> */}
-      <QuestionRenderPage />
+      <HomeRender />
+      {/* <QuestionRenderPage /> */}
       <Footer />
     </>
   );

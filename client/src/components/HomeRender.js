@@ -59,9 +59,9 @@ const LeftOptionBtn = styled.button`
   height: 33px;
   background-color: white;
   border-radius: 5px 0 0 5px;
-  color: black;
+  color: #838c95;
   font-size: 13px;
-  border: solid 1px #545c62;
+  border: solid 1px #838c95;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
   &:hover {
     background-color: #e3e6e8;
@@ -74,9 +74,9 @@ const RightOptionBtn = styled.button`
   height: 33px;
   background-color: white;
   border-radius: 0 5px 5px 0;
-  color: black;
+  color: #838c95;
   font-size: 13px;
-  border: solid 1px #545c62;
+  border: solid 1px #838c95;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
   &:hover {
     background-color: #e3e6e8;
@@ -89,9 +89,9 @@ const OptionBtn = styled.button`
   width: auto;
   height: 33px;
   background-color: white;
-  color: black;
+  color: #838c95;
   font-size: 13px;
-  border: solid 1px #545c62;
+  border: solid 1px #838c95;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
   &:hover {
     background-color: #e3e6e8;
@@ -99,28 +99,133 @@ const OptionBtn = styled.button`
   cursor: pointer;
   font-size: 13px;
 `;
+const Line = styled.div`
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: -20px;
+`;
 const MainRenderSpace = styled.div`
   margin: 20px 0 0 0;
 `;
 const MainRender = styled.div`
-  font-size: 100px;
-  margin: 90px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 const LastComment = styled.div`
   text-align: start;
   margin: 30px;
   font-size: 17px;
 `;
-const RenderLeft = styled.div``;
-const Votes = styled.div``;
-const SmallText = styled.div``;
-const RenderRight = styled.div``;
-const QuestionHeader = styled.div``;
-const QuestionContent = styled.div``;
-const Tags = styled.div``;
+const ContentsBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px 0 40px 0;
+  border-bottom: 1px solid lightgray;
+  /* margin: 10px 0; */
+`;
+const RenderLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  margin-right: 10px;
+  width: 150px;
+  height: auto;
+  margin-top: 3px;
+`;
+const Votes = styled.div`
+  margin: 3px 0;
+  font-size: 12px;
+`;
+const SmallText = styled.div`
+  margin: 3px 0;
+  font-size: 12px;
+  color: gray;
+`;
+const RenderRight = styled.div`
+  margin-left: 10px;
+  width: 100%;
+  height: auto;
+  text-align: start;
+`;
+const QuestionHeader = styled.div`
+  font-size: large;
+  color: #1774cb;
+  margin-bottom: 5px;
+  &:hover {
+    color: #0a95ff;
+  }
+`;
+const QuestionContent = styled.div`
+  font-size: 12px;
+  font-weight: 400;
+`;
 
+const TagContain = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+const Tags = styled.button`
+  margin: 8px 5px 5px 0px;
+  width: auto;
+  border-radius: 3px;
+  height: 20px;
+  background-color: #e3e6e8;
+  color: black;
+  font-size: 13px;
+  border: none;
+
+  &:hover {
+    background-color: #d0e2f0;
+  }
+  cursor: pointer;
+  font-size: 13px;
+`;
 const RenderPage = () => {
   //   const [userCount, setUserCount] = useEffect('');
+  const dummyData = [
+    {
+      vote: 2,
+      answers: 3,
+      views: 3,
+      id: 'kuu',
+      title: '이게 안되요1',
+      question: '이렇게 했는 데 이게 안되요1',
+      tags: ['tag1', 'tag2', 'tag3'],
+      athor: '김코딩',
+    },
+    {
+      vote: 4,
+      answers: 6,
+      views: 3,
+      id: 'kuu5',
+      title: '이게 안되요2',
+      question: '이렇게 했는 데 이게 안되요2',
+      tags: ['mr', 'back', 'thanks'],
+      athor: '김코딩2',
+    },
+    {
+      vote: 1,
+      answers: 2,
+      views: 10,
+      id: 'kuu6',
+      title: '이게 안되요3',
+      question: '이렇게 했는 데 이게 안되요3',
+      tags: ['t', '24', 'noneSleep'],
+      athor: '김코딩3',
+    },
+    {
+      vote: 2,
+      answers: 3,
+      views: 10,
+      id: 'kuu8',
+      title: '이게 안되요4',
+      question: '이렇게 했는 데 이게 안되요4',
+      tags: ['t', '26', '26hajo'],
+      athor: '김코딩4',
+    },
+  ];
 
   return (
     <RenderContain>
@@ -138,18 +243,28 @@ const RenderPage = () => {
           <OptionBtn>Week</OptionBtn>
           <RightOptionBtn>Month</RightOptionBtn>
         </RenderSubHead>
+        <Line />
         <MainRenderSpace>
           <MainRender>
-            <RenderLeft>
-              <Votes>0 votes</Votes>
-              <SmallText>0 answers</SmallText>
-              <SmallText>2 views</SmallText>
-            </RenderLeft>
-            <RenderRight>
-              <QuestionHeader>Question Header</QuestionHeader>
-              <QuestionContent>Question Contents</QuestionContent>
-              <Tags>Tags</Tags>
-            </RenderRight>
+            {dummyData.map((x, idx) => {
+              return (
+                <ContentsBox key={idx}>
+                  <RenderLeft>
+                    <Votes>{x.vote} votes</Votes>
+                    <SmallText>{x.answers} answers</SmallText>
+                    <SmallText>{x.views} views</SmallText>
+                  </RenderLeft>
+                  <RenderRight>
+                    <QuestionHeader>{x.title}</QuestionHeader>
+                    <QuestionContent>{x.question}</QuestionContent>
+                    <TagContain>
+                      {x.tags &&
+                        x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}
+                    </TagContain>
+                  </RenderRight>
+                </ContentsBox>
+              );
+            })}
           </MainRender>
           <LastComment>
             Looking for more? Browse the complete list of questions, or popular

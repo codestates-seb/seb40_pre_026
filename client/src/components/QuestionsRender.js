@@ -84,9 +84,9 @@ const LeftOptionBtn = styled.button`
   height: 33px;
   background-color: white;
   border-radius: 5px 0 0 5px;
-  color: black;
+  color: #838c95;
   font-size: 13px;
-  border: solid 1px #545c62;
+  border: solid 1px #838c95;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
   &:hover {
     background-color: #e3e6e8;
@@ -99,9 +99,9 @@ const RightOptionBtn = styled.button`
   height: 33px;
   background-color: white;
   border-radius: 0 5px 5px 0;
-  color: black;
+  color: #838c95;
   font-size: 13px;
-  border: solid 1px #545c62;
+  border: solid 1px #838c95;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
   &:hover {
     background-color: #e3e6e8;
@@ -119,9 +119,9 @@ const OptionBtn = styled.button`
   width: auto;
   height: 33px;
   background-color: white;
-  color: black;
+  color: #838c95;
   font-size: 13px;
-  border: solid 1px #545c62;
+  border: solid 1px #838c95;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
   &:hover {
     background-color: #e3e6e8;
@@ -162,14 +162,15 @@ const PageNation = styled.div`
 const Line = styled.div`
   width: 100%;
   border-bottom: 1px solid lightgray;
+  margin-bottom: -20px;
 `;
 const ContentsBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-bottom: 20px;
+  padding: 20px 0 40px 0;
   border-bottom: 1px solid lightgray;
-  margin: 20px 10px 20px 0;
+  /* margin: 10px 0; */
 `;
 const RenderLeft = styled.div`
   display: flex;
@@ -213,17 +214,17 @@ const TagContain = styled.div`
   flex-direction: row;
 `;
 const Tags = styled.button`
-  margin: 8px 20px 20px 0px;
+  margin: 8px 5px 5px 0px;
   width: auto;
-  border-radius: 5px;
+  border-radius: 3px;
   height: 20px;
-  background-color: white;
+  background-color: #e3e6e8;
   color: black;
   font-size: 13px;
-  border: solid 1px #545c62;
-  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+  border: none;
+
   &:hover {
-    background-color: #e3e6e8;
+    background-color: #d0e2f0;
   }
   cursor: pointer;
   font-size: 13px;
@@ -236,7 +237,62 @@ const BottomContents = styled.div`
 
 const QuestionRenderPage = () => {
   //   const [userCount, setUserCount] = useEffect('');
-
+  const dummyData = [
+    //[1,2,3,4.5] [1에 대한 함수 리턴값,2에 대한 함수 리턴값,3에 대한 함수 리턴값,4에 대한 함수 리턴값]
+    // filter => map=>
+    // return 조건식에 참인것만 리턴을
+    // return x
+    /*
+      map -> 3이상의 수는 *2 , 3이하의 수는 그냥 둔다
+      [1,2,3,4,5].map((x)=>{   // [1,2,3,8,10]
+        if(x>3){
+          return x*2
+        }else{
+          return x
+        }
+      })
+    */
+    {
+      vote: 2,
+      answers: 3,
+      views: 3,
+      id: 'kuu',
+      title: '이게 안되요1',
+      question: '이렇게 했는 데 이게 안되요1',
+      tags: ['tag1', 'tag2', 'tag3'],
+      athor: '김코딩',
+    },
+    {
+      vote: 4,
+      answers: 6,
+      views: 3,
+      id: 'kuu5',
+      title: '이게 안되요2',
+      question: '이렇게 했는 데 이게 안되요2',
+      tags: ['mr', 'back', 'thanks'],
+      athor: '김코딩2',
+    },
+    {
+      vote: 1,
+      answers: 2,
+      views: 10,
+      id: 'kuu6',
+      title: '이게 안되요3',
+      question: '이렇게 했는 데 이게 안되요3',
+      tags: ['t', '24', 'noneSleep'],
+      athor: '김코딩3',
+    },
+    {
+      vote: 2,
+      answers: 3,
+      views: 10,
+      id: 'kuu8',
+      title: '이게 안되요4',
+      question: '이렇게 했는 데 이게 안되요4',
+      tags: ['t', '26', '26hajo'],
+      athor: '김코딩4',
+    },
+  ];
   return (
     <RenderContain>
       <RightSide>
@@ -262,48 +318,25 @@ const QuestionRenderPage = () => {
         <Line />
         <MainRenderSpace>
           <MainRender>
-            <ContentsBox>
-              <RenderLeft>
-                <Votes>0 votes</Votes>
-                <SmallText>0 answers</SmallText>
-                <SmallText>2 views</SmallText>
-              </RenderLeft>
-              <RenderRight>
-                <QuestionHeader>Question Header</QuestionHeader>
-                <QuestionContent>Question Contents</QuestionContent>
-                <TagContain>
-                  <Tags>Tags</Tags>
-                </TagContain>
-              </RenderRight>
-            </ContentsBox>
-            <ContentsBox>
-              <RenderLeft>
-                <Votes>0 votes</Votes>
-                <SmallText>0 answers</SmallText>
-                <SmallText>2 views</SmallText>
-              </RenderLeft>
-              <RenderRight>
-                <QuestionHeader>Question Header</QuestionHeader>
-                <QuestionContent>Question Contents</QuestionContent>
-                <TagContain>
-                  <Tags>Tags</Tags>
-                </TagContain>
-              </RenderRight>
-            </ContentsBox>{' '}
-            <ContentsBox>
-              <RenderLeft>
-                <Votes>0 votes</Votes>
-                <SmallText>0 answers</SmallText>
-                <SmallText>2 views</SmallText>
-              </RenderLeft>
-              <RenderRight>
-                <QuestionHeader>Question Header</QuestionHeader>
-                <QuestionContent>Question Contents</QuestionContent>
-                <TagContain>
-                  <Tags>Tags</Tags>
-                </TagContain>
-              </RenderRight>
-            </ContentsBox>
+            {dummyData.map((x, idx) => {
+              return (
+                <ContentsBox key={idx}>
+                  <RenderLeft>
+                    <Votes>{x.vote} votes</Votes>
+                    <SmallText>{x.answers} answers</SmallText>
+                    <SmallText>{x.views} views</SmallText>
+                  </RenderLeft>
+                  <RenderRight>
+                    <QuestionHeader>{x.title}</QuestionHeader>
+                    <QuestionContent>{x.question}</QuestionContent>
+                    <TagContain>
+                      {x.tags &&
+                        x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}
+                    </TagContain>
+                  </RenderRight>
+                </ContentsBox>
+              );
+            })}
           </MainRender>
           <BottomContents>
             <PageNation>PageNation space</PageNation>
