@@ -171,19 +171,21 @@ const Signup = () => {
     }
 
     const signupInfo = {
-      nickname: nicknameValue,
+      nickName: nicknameValue,
       email: emailValue,
-      pw: passwordValue,
+      password: passwordValue,
     };
 
-    axios.post('url/api', signupInfo).then((res) => {
-      console.log('Sign Up!');
-      console.log(res.data);
-    });
-
-    nicknameReset();
-    emailReset();
-    passwordReset();
+    axios
+      .post('https://7b6e-218-158-78-87.jp.ngrok.io/users/sign', signupInfo)
+      .then((res) => {
+        console.log('Sign Up!');
+        console.log(res.data);
+        nicknameReset();
+        emailReset();
+        passwordReset();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

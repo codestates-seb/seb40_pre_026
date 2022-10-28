@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { userIdSelector, isLoggedInSelector } from '../redux/hooks';
+import { setId, setIsLoggedin, deleteId } from '../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Container = styled.div`
   display: flex;
@@ -82,10 +86,31 @@ const CancelButton = styled(LogoutButton)`
 `;
 
 const Logout = () => {
+  const email = useSelector(userIdSelector);
+  const loggedIn = useSelector(isLoggedInSelector);
+  const dispatch = useDispatch();
+  console.log(loggedIn);
+
+  // .default.headers.common['Authorization'] = `Bearer ${jwtToken}`
   const logoutRequestHandler = () => {
+    const jwtToken = window.localStorage.getItem('jwtToken');
+    if (jwtToken === undefined) return;
+
     return axios
-      .post('url/logout')
-      .then((res) => {
+      .post(
+        'https://7b6e-218-158-78-87.jp.ngrok.io/users/logout',
+        { email: email },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      )
+      .then(() => {
+        window.localStorage.removeItem('jwtToken');
+        window.localStorage.removeItem('email');
+        dispatch(deleteId());
+        dispatch(setIsLoggedin(false));
         //TODO: redux, 로컬스토리지로 로그인 정보 초기화, 토큰 삭제
         //이후 메인 화면으로 리다이렉트
       })

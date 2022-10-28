@@ -2,6 +2,10 @@ import { React, useState } from 'react';
 import styled from 'styled-components';
 import icon from '../image/github.png';
 import logo from '../SOFLogo.png';
+import { setId, setIsLoggedin } from '../redux/userSlice';
+import { userIdSelector, isLoggedInSelector } from '../redux/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Container = styled.div`
   display: flex;
@@ -132,6 +136,12 @@ const A = styled.a`
 // const [isLogin, setIsLogin] = useState(false) 리덕스로 관리
 
 const Login = () => {
+  const id = useSelector(userIdSelector);
+  const loggedIn = useSelector(isLoggedInSelector);
+  console.log(id);
+  console.log(loggedIn);
+  const dispatch = useDispatch();
+  // const userId = useSelector((state) => state.id);
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -148,14 +158,23 @@ const Login = () => {
       return;
     }
 
+    console.log(loginInfo);
+
     return axios
-      .post('url/api', { loginInfo })
+      .post('https://7b6e-218-158-78-87.jp.ngrok.io/users/login', loginInfo)
       .then((res) => {
-        console.log(res);
-        //TODO: res로 받아온 user정보와 jwt토큰을 redux와 로컬스토리지로 처리해야 함
+        //res로 받아온 user정보와 jwt토큰을 redux와 로컬스토리지로 처리
+        window.localStorage.setItem('email', res.data.body.email);
+        window.localStorage.setItem(
+          'jwtToken',
+          res.data.body.tokenInfo.accessToken
+        );
+        dispatch(setId(res.data.body.email));
+        dispatch(setIsLoggedin(true));
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
+        alert('로그인 실패');
       });
   };
 
@@ -175,7 +194,7 @@ const Login = () => {
       <Card>
         <Form onSubmit={(e) => e.preventDefault()}>
           <InputContainer>
-            <Label for="email">Email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="text"
@@ -184,7 +203,7 @@ const Login = () => {
           </InputContainer>
           <InputContainer>
             <PwLabelReset>
-              <Label for="password">Password</Label>
+              <Label htmlFor="password">Password</Label>
               <A href="url">Forgot password?</A>
             </PwLabelReset>
             <Input
