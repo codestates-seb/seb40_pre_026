@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import LogoSrc from '../image/SOFLogo.png';
+import { setIsLoggedin } from '../redux/userSlice';
 
 const FooterContain = styled.div`
   position: relative;
