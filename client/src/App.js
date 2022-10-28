@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Footer from './components/Footer';
+import Users from './components/Users';
 
 function App() {
   return (

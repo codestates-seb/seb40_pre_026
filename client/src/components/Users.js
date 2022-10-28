@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Login from './Login';
 import Logout from './Logout';
 import Signup from './Signup';
-import { useState } from 'react';
 
 const Background = styled.div`
   background-color: rgb(239, 240, 242);
