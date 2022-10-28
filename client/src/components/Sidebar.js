@@ -11,15 +11,16 @@ import {
 
 const SidebarContainer = styled.nav`
   background-color: #fff;
-  width: 240px;
-  padding: 20px 0px 10px 10px;
-  margin: 0;
+  width: 180px;
+  /* padding: 20px 0px 10px 10px; */
+  margin-top: 70px;
+  /* margin-left: 110px; */
   position: fixed;
-  height: 100%;
+  height: 500px;
   overflow: auto;
-  font-size: 15px;
-  padding-top: 30px;
-  padding-left: 10px;
+  font-size: 13px;
+  padding-top: 10px;
+  /* padding-left: 10px; */
 `;
 
 const SidebarList = styled.li`
@@ -32,6 +33,7 @@ const SidebarList = styled.li`
     display: flex;
     text-align: center;
     justify-content: space-between;
+    font-size: 1px;
   }
 
   .icon {
@@ -69,14 +71,35 @@ const NavLinkStyle = styled(NavLink)`
   }
 `;
 
+const HomeNavLinkStyle = styled(NavLink)`
+  display: block;
+  padding: 10px 10px 10px 0;
+  color: rgb(43, 43, 43);
+  &:link {
+    text-decoration: none;
+  }
+  &:hover {
+    color: black;
+    font-weight: 600;
+  }
+  &.active {
+    color: black;
+    font-weight: 700;
+    background-color: rgb(82, 89, 96, 10%);
+    position: relative;
+    top: 2px;
+    border-right: 5px solid rgb(245, 162, 9);
+  }
+`;
+
 export function Sidebar() {
   return (
     <SidebarContainer>
       <ul>
         <SidebarList>
-          <NavLinkStyle end to="/">
+          <HomeNavLinkStyle end to="/">
             Home
-          </NavLinkStyle>
+          </HomeNavLinkStyle>
         </SidebarList>
         <SidebarList>PUBLIC</SidebarList>
         <SidebarList>
@@ -107,10 +130,10 @@ export function Sidebar() {
           </div>
         </SidebarList>
         <SidebarList>
-          <NavLinkStyle end to="/explore" className="link">
+          <HomeNavLinkStyle end to="/explore" className="link">
             <FontAwesomeIcon icon={faCertificate} className="icon color" />
             Explore Collectives
-          </NavLinkStyle>
+          </HomeNavLinkStyle>
         </SidebarList>
         <SidebarList>
           <div className="info">
@@ -119,10 +142,10 @@ export function Sidebar() {
           </div>
         </SidebarList>
         <SidebarList>
-          <NavLinkStyle end to="/team" className="link">
+          <HomeNavLinkStyle end to="/team" className="link">
             <FontAwesomeIcon icon={faSuitcase} className="icon color" />
             Create free Team
-          </NavLinkStyle>
+          </HomeNavLinkStyle>
         </SidebarList>
       </ul>
     </SidebarContainer>
