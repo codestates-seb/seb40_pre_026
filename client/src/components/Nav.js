@@ -4,16 +4,11 @@ import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
 
 const NavContainer = styled.div`
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center; */
   box-sizing: border-box;
   position: fixed;
   margin: 0px;
   width: 100%;
   display: flex;
-  /* width: 1218px; */
   height: 58px;
   background-color: hsl(210, 8%, 97.5%);
   border-top: solid 5px hsl(27, 90%, 55%);
@@ -97,7 +92,6 @@ const ForTeamsBtn = styled.button`
 `;
 
 const SearchContainer = styled.div`
-  margin: px;
   width: 710px;
   height: 32px;
   position: relative;
@@ -122,10 +116,6 @@ const SearchInput = styled.input`
   padding: 7.8px 9.1px 7.8px 32px;
   height: 32px;
   width: 700px;
-  /* outline: none !important;
-  border-color: hsl(210, 8%, 65%);
-  box-shadow: 0 0 10px #d6a8e9; */
-  /* border-color: solid 4px hsl(210, 8%, 75%); */
   border-radius: 5px;
   border-top: solid 3px hsl(210, 8%, 55%);
   border-left: solid 3px hsl(210, 8%, 55%);
@@ -177,12 +167,25 @@ const ModalView = styled.div`
   }
 `;
 
-const HintItems = styled.div`
-  flex-basis: 50%;
-`;
-const HintItem = styled.span`
-  box-sizing: border-box;
-  margin-bottom: 12px !important;
+  .questionBtn {
+    background-color: hsl(205, 46%, 92%);
+    color: hsl(205, 47%, 42%);
+    font-size: 13px;
+    border: 1px solid transparent;
+    border-color: hsl(205, 41%, 63%);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+    &:hover {
+      background-color: hsl(205, 41%, 63%);
+    }
+  }
+  .help {
+    &:hover {
+      color: hsl(206, 93%, 83.5%);
+    }
+    margin-top: 5px;
+    font-size: 14px;
+  }
 `;
 
 const LoginBtn = styled.button`
@@ -216,21 +219,14 @@ const SignupBtn = styled.button`
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
-  user-select: none;
-
+  /* user-select: none; */
   &:hover {
     background-color: hsl(205, 47%, 42%);
     font-size: 13px;
   }
 `;
 
-function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModalHandler = () => {
-    console.log('hi');
-    setIsOpen(!isOpen);
-  };
+function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   return (
     <NavContainer>
       <FlowLogo src={stackoverflow_logo} alt="logo" />
@@ -247,32 +243,56 @@ function Nav() {
             placeholder="Search..."
             onClick={openModalHandler}
           />
+          {dropdownIsOpen ? (
+            <SearchItemContainer>
+              <SearchItem>
+                <li className="first">
+                  <ul>
+                    [tag]
+                    <span className="small_hint"> search within a tag</span>
+                  </ul>
+                  <ul>
+                    user:1234
+                    <span className="small_hint"> search by author</span>
+                  </ul>
+                  <ul>
+                    &quot;words here&quot;
+                    <span className="small_hint"> exact phrase</span>
+                  </ul>
+                  <ul>
+                    collective: &quot;Name&quot;
+                    <span className="small_hint"> collective content</span>
+                  </ul>
+                </li>
+                <li className="second">
+                  <ul>
+                    answers:0
+                    <span className="small_hint"> unanswered questions</span>
+                  </ul>
+                  <ul>
+                    score:3
+                    <span className="small_hint"> posts with a 3+ score</span>
+                  </ul>
+                  <ul>
+                    is:questsion
+                    <span className="small_hint"> type of post</span>
+                  </ul>
+                  <ul>
+                    isaccepted:yes
+                    <span className="small_hint"> search within status</span>
+                  </ul>
+                </li>
+              </SearchItem>
+              <SearchItem_bottom>
+                <button className="questionBtn">ask a question</button>
+                <span className="help">Search help</span>
+              </SearchItem_bottom>
+            </SearchItemContainer>
+          ) : null}
         </SearchContainer>
-        {isOpen ? (
-          <ModalContainer>
-            <ModalView>
-              <div className="hint1">
-                <span className="first">[tag]</span>
-                <span className="second">search within a tag</span>
-              </div>
-              <div>
-                <span>user:1234</span>
-                <span>search by author</span>
-              </div>
-              <div>
-                <span>&quot;words here&quot;</span>
-                <span>exact phrase</span>
-              </div>
-              <div>
-                <span>collective:</span>
-                <span>&quot;Name&quot; collective content</span>
-              </div>
-            </ModalView>
-          </ModalContainer>
-        ) : null}
-      </SearchModalContainer>
-      <LoginBtn>Log in</LoginBtn>
-      <SignupBtn>Sign up</SignupBtn>
+        <LoginBtn>Log in</LoginBtn>
+        <SignupBtn>Sign up</SignupBtn>
+      </NavBoxCotain>
     </NavContainer>
   );
 }

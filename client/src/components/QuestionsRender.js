@@ -236,7 +236,7 @@ const BottomContents = styled.div`
   justify-content: space-between;
 `;
 
-const QuestionRenderPage = () => {
+const QuestionRenderPage = ({ modalCloseHandler }) => {
   //   const [userCount, setUserCount] = useEffect('');
   const dummyData = [
     //[1,2,3,4.5] [1에 대한 함수 리턴값,2에 대한 함수 리턴값,3에 대한 함수 리턴값,4에 대한 함수 리턴값]
@@ -295,7 +295,7 @@ const QuestionRenderPage = () => {
     },
   ];
   return (
-    <RenderContain>
+    <RenderContain onClick={modalCloseHandler}>
       <RightSide>
         <RenderHead>
           <RenderHomeHead>All Questions</RenderHomeHead>
