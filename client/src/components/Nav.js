@@ -1,29 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
 
 const NavContainer = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   box-sizing: border-box;
+  position: fixed;
   margin: 0px;
   width: 100%;
   display: flex;
-  height: 64px;
+  /* width: 1218px; */
+  height: 58px;
   background-color: hsl(210, 8%, 97.5%);
   border-top: solid 5px hsl(27, 90%, 55%);
   box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
     0 3px 8px hsla(0, 0%, 0%, 0.09);
 `;
 
+const NavBoxCotain = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 100px;
+  width: 100%;
+`;
+
 const FlowLogo = styled.img`
   margin: 10px;
   padding: 6px 12px;
-  width: 182px;
-  height: 43px;
+  width: 150px;
+  height: 41px;
   &:hover {
     background-color: hsl(210, 8%, 90%);
     height: 43px;
@@ -37,26 +48,27 @@ const BtnContainer = styled.div`
 `;
 
 const AboutBtn = styled.button`
-  margin: 2px;
-  padding: 6px 12px;
-  width: 65px;
-  height: 47px;
+  margin: 2px 7px 2px 5px;
+  padding: 3px 3px;
+  width: 50px;
+  height: 43px;
   border-radius: 1000px;
   border: none;
   color: #525960;
   background-color: hsl(210, 8%, 97.5%);
   &:hover {
     background-color: hsl(210, 8%, 90%);
+    border-radius: 1000;
   }
   cursor: pointer;
-  font-size: 17px;
+  font-size: 13px;
 `;
 
 const ProductsBtn = styled.button`
-  margin: 2px;
-  padding: 6px 12px;
-  width: 85px;
-  height: 45px;
+  margin: 2px 0px 2px 2px;
+  padding: 3px 3px;
+  width: 65px;
+  height: 43px;
   border-radius: 1000px;
   border: none;
   color: #525960;
@@ -65,14 +77,14 @@ const ProductsBtn = styled.button`
     background-color: hsl(210, 8%, 90%);
   }
   cursor: pointer;
-  font-size: 17px;
+  font-size: 13px;
 `;
 
 const ForTeamsBtn = styled.button`
-  margin: 2px;
-  padding: 6px 12px;
-  width: 110px;
-  height: 47px;
+  margin: 2px -10px 2px 2px;
+  padding: 3px 3px;
+  width: 90px;
+  height: 43px;
   border-radius: 1000px;
   border: none;
   color: #525960;
@@ -81,34 +93,30 @@ const ForTeamsBtn = styled.button`
     background-color: hsl(210, 8%, 90%);
   }
   cursor: pointer;
-  font-size: 17px;
+  font-size: 13px;
 `;
 
 const SearchContainer = styled.div`
-  margin: 10px;
-  width: 900px;
-  height: 48.19px;
+  margin: px;
+  width: 710px;
+  height: 32px;
   position: relative;
   border: 0;
   img {
+    margin-right: 30px;
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     left: 15px;
-    top: 10px;
+    top: 5px;
   }
-`;
-const SearchModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0;
 `;
 const SearchInput = styled.input`
   box-sizing: border-box;
   margin: 0px 10px;
   padding: 7.8px 9.1px 7.8px 32px;
-  height: 48.19px;
-  width: 900px;
+  height: 32px;
+  width: 700px;
   /* outline: none !important;
   border-color: hsl(210, 8%, 65%);
   box-shadow: 0 0 10px #d6a8e9; */
@@ -125,138 +133,186 @@ const SearchInput = styled.input`
   }
   font-size: 15px;
 `;
-
-const ModalContainer = styled.div`
-  box-sizing: border-box;
-  margin-top: 180px;
-  margin-left: 5px;
-  padding: 0px 5px;
-  height: 180px;
-  width: 900px;
-  background: gray;
-  border-color: hsl(210, 8%, 75%);
+const SearchItemContainer = styled.div`
   display: flex;
-  color: hsl(210, 8%, 25%);
-  padding: 12px;
-`;
-const ModalView = styled.div`
-  /* display: flex; */
-  text-align: left;
-  /* justify-content: center; */
-  margin-top: 5px;
-  margin-left: 30px;
-  color: black;
-  background: #eee;
-  height: 120px;
-  width: 900px;
-  padding: 8px 20px;
-  border-radius: 20px;
-  > div {
-    margin-left: 10px;
-  }
-  > .first {
-    color: black;
-    padding-top: 44px;
-  }
-  > .second {
-    color: gray;
-    padding-top: 30px;
-  }
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 0px;
+  width: 700px;
+  height: 250px;
+  background-color: transparent;
 `;
 
-const HintItems = styled.div`
-  flex-basis: 50%;
-`;
-const HintItem = styled.span`
+const SearchItem = styled.div`
+  display: flex;
+  flex-direction: row;
   box-sizing: border-box;
-  margin-bottom: 12px !important;
+  margin-left: 10px;
+  padding: 0px;
+  width: 700px;
+  height: 180px;
+
+  background-color: white;
+  border-color: black;
+  border-radius: 7px 7px 0px 0px;
+  box-shadow: 0px 0px 0px 2px hsl(210, 8%, 90%);
+  .first {
+    list-style: none;
+    text-align: left;
+    color: black;
+  }
+  .second {
+    list-style: none;
+    text-align: left;
+    color: black;
+  }
+  .small_hint {
+    color: gray;
+  }
+`;
+const SearchItem_bottom = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+  padding: 10px;
+  width: 700px;
+  height: 52px;
+  color: #0074cc;
+  box-shadow: 0px 0px 0px 2px hsl(210, 8%, 90%);
+  border-top: 0px;
+  border-radius: 0px 0px 7px 7px;
+
+  .qusetionBtn {
+    background-color: hsl(205, 46%, 92%);
+    color: hsl(205, 47%, 42%);
+    font-size: 13px;
+    border: 1px solid transparent;
+    border-color: hsl(205, 41%, 63%);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+    &:hover {
+      background-color: hsl(205, 41%, 63%);
+    }
+  }
+  .help {
+    &:hover {
+      color: hsl(206, 93%, 83.5%);
+    }
+    font-size: 14px;
+  }
 `;
 
 const LoginBtn = styled.button`
-  margin: 4px;
-  margin-left: 10px;
-  padding: 10px;
-  width: 74.2px;
-  height: 48px;
+  margin: 4px 4px 4px 10px;
+  padding: 5px;
+  width: 59px;
+  height: 33px;
   background-color: #e1ecf4;
   color: #39739d;
+  font-size: 13px;
   border: solid 1px hsl(205, 41%, 63%);
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
   &:hover {
     background-color: hsl(205, 56%, 76%);
   }
   cursor: pointer;
-  font-size: 15px;
+  font-size: 13px;
 `;
 
 const SignupBtn = styled.button`
   margin: 0px 0px 0px 4px;
-  padding: 10px;
-  width: 90px;
-  height: 48px;
+  padding: 5px;
+  font-weight: 500;
+  width: 69px;
+  height: 33px;
   background-color: #0a95ff;
   color: #ffffff;
+  font-size: 13px;
   border: 1px solid transparent;
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
-  user-select: none;
-
+  /* user-select: none; */
   &:hover {
     background-color: hsl(205, 47%, 42%);
+    font-size: 13px;
   }
-  font-size: 15px;
 `;
 
 function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModalHandler = () => {
+  const [dropdownIsOpen, setOpen] = useState(false);
+  const ModalItem = () => {
     console.log('hi');
-    setIsOpen(!isOpen);
+    setOpen(!dropdownIsOpen);
   };
   return (
     <NavContainer>
-      <FlowLogo src={stackoverflow_logo} alt="logo" />
-      <BtnContainer>
-        <AboutBtn>About</AboutBtn>
-        <ProductsBtn>Products</ProductsBtn>
-        <ForTeamsBtn>For Teams</ForTeamsBtn>
-      </BtnContainer>
-      <SearchModalContainer>
+      <NavBoxCotain>
+        <FlowLogo src={stackoverflow_logo} alt="logo" />
+        <BtnContainer>
+          <AboutBtn>About</AboutBtn>
+          <ProductsBtn>Products</ProductsBtn>
+          <ForTeamsBtn>For Teams</ForTeamsBtn>
+        </BtnContainer>
         <SearchContainer>
           <img src={MagnifyingGlass} alt="searchicon" />
           <SearchInput
             type="text"
             placeholder="Search..."
-            onClick={openModalHandler}
+            onClick={ModalItem}
           />
+          {dropdownIsOpen ? (
+            <SearchItemContainer>
+              <SearchItem>
+                <li className="first">
+                  <ul>
+                    [tag]
+                    <span className="small_hint"> search within a tag</span>
+                  </ul>
+                  <ul>
+                    user:1234
+                    <span className="small_hint"> search by author</span>
+                  </ul>
+                  <ul>
+                    &quot;words here&quot;
+                    <span className="small_hint"> exact phrase</span>
+                  </ul>
+                  <ul>
+                    collective: &quot;Name&quot;
+                    <span className="small_hint"> collective content</span>
+                  </ul>
+                </li>
+                <li className="second">
+                  <ul>
+                    answers:0
+                    <span className="small_hint"> unanswered questions</span>
+                  </ul>
+                  <ul>
+                    score:3
+                    <span className="small_hint"> posts with a 3+ score</span>
+                  </ul>
+                  <ul>
+                    is:questsion
+                    <span className="small_hint"> type of post</span>
+                  </ul>
+                  <ul>
+                    isaccepted:yes
+                    <span className="small_hint"> search within status</span>
+                  </ul>
+                </li>
+              </SearchItem>
+              <SearchItem_bottom>
+                <button className="qusetionBtn">ask qustion</button>
+                <span className="help">Search help</span>
+              </SearchItem_bottom>
+            </SearchItemContainer>
+          ) : null}
         </SearchContainer>
-        {isOpen ? (
-          <ModalContainer>
-            <ModalView>
-              <div className="hint1">
-                <span className="first">[tag]</span>
-                <span className="second">search within a tag</span>
-              </div>
-              <div>
-                <span>user:1234</span>
-                <span>search by author</span>
-              </div>
-              <div>
-                <span>&quot;words here&quot;</span>
-                <span>exact phrase</span>
-              </div>
-              <div>
-                <span>collective:</span>
-                <span>&quot;Name&quot; collective content</span>
-              </div>
-            </ModalView>
-          </ModalContainer>
-        ) : null}
-      </SearchModalContainer>
-      <LoginBtn>Log in</LoginBtn>
-      <SignupBtn>Sign up</SignupBtn>
+        <LoginBtn>Log in</LoginBtn>
+        <SignupBtn>Sign up</SignupBtn>
+      </NavBoxCotain>
     </NavContainer>
   );
 }
