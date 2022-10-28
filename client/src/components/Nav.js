@@ -1,19 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
 
 const NavContainer = styled.div`
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center; */
   box-sizing: border-box;
   position: fixed;
   margin: 0px;
   width: 100%;
   display: flex;
-  /* width: 1218px; */
   height: 58px;
   background-color: hsl(210, 8%, 97.5%);
   border-top: solid 5px hsl(27, 90%, 55%);
@@ -97,7 +92,6 @@ const ForTeamsBtn = styled.button`
 `;
 
 const SearchContainer = styled.div`
-  margin: px;
   width: 710px;
   height: 32px;
   position: relative;
@@ -117,10 +111,6 @@ const SearchInput = styled.input`
   padding: 7.8px 9.1px 7.8px 32px;
   height: 32px;
   width: 700px;
-  /* outline: none !important;
-  border-color: hsl(210, 8%, 65%);
-  box-shadow: 0 0 10px #d6a8e9; */
-  /* border-color: solid 4px hsl(210, 8%, 75%); */
   border-radius: 5px;
   border-top: solid 3px hsl(210, 8%, 55%);
   border-left: solid 3px hsl(210, 8%, 55%);
@@ -184,7 +174,7 @@ const SearchItem_bottom = styled.div`
   border-top: 0px;
   border-radius: 0px 0px 7px 7px;
 
-  .qusetionBtn {
+  .questionBtn {
     background-color: hsl(205, 46%, 92%);
     color: hsl(205, 47%, 42%);
     font-size: 13px;
@@ -200,6 +190,7 @@ const SearchItem_bottom = styled.div`
     &:hover {
       color: hsl(206, 93%, 83.5%);
     }
+    margin-top: 5px;
     font-size: 14px;
   }
 `;
@@ -234,19 +225,13 @@ const SignupBtn = styled.button`
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
-  /* user-select: none; */
   &:hover {
     background-color: hsl(205, 47%, 42%);
     font-size: 13px;
   }
 `;
 
-function Nav() {
-  const [dropdownIsOpen, setOpen] = useState(false);
-  const ModalItem = () => {
-    console.log('hi');
-    setOpen(!dropdownIsOpen);
-  };
+function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   return (
     <NavContainer>
       <NavBoxCotain>
@@ -304,7 +289,7 @@ function Nav() {
                 </li>
               </SearchItem>
               <SearchItem_bottom>
-                <button className="qusetionBtn">ask qustion</button>
+                <button className="questionBtn">ask a question</button>
                 <span className="help">Search help</span>
               </SearchItem_bottom>
             </SearchItemContainer>

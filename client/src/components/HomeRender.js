@@ -183,7 +183,7 @@ const Tags = styled.button`
   cursor: pointer;
   font-size: 13px;
 `;
-const RenderPage = () => {
+const RenderPage = ({ modalCloseHandler }) => {
   //   const [userCount, setUserCount] = useEffect('');
   const dummyData = [
     {
@@ -229,7 +229,7 @@ const RenderPage = () => {
   ];
 
   return (
-    <RenderContain>
+    <RenderContain onClick={modalCloseHandler}>
       <RightSide>
         {' '}
         <RenderHead>
