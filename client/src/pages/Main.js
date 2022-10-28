@@ -14,6 +14,10 @@ const MainPage = () => {
       <Sidebar />
       <Routes>
         <Route path="/" element={<HomeRender />} />
+
+        {/* Todo : 해당 path는 배포 이전에 수정작업을 통해 고쳐야 합니다 */}
+        <Route path="/codestates-seb/seb40_pre_026" element={<HomeRender />} />
+
         {/* <Route path="/:id" element={<Details />} /> */}
         <Route path="/questions" element={<QuestionRenderPage />} />
       </Routes>
