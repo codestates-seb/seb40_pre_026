@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
 
 const NavContainer = styled.div`
@@ -113,6 +111,11 @@ const SearchContainer = styled.div`
     top: 5px;
   }
 `;
+const SearchModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+`;
 const SearchInput = styled.input`
   box-sizing: border-box;
   margin: 0px 10px;
@@ -130,11 +133,58 @@ const SearchInput = styled.input`
   border-bottom: solid 2.5px hsl(210, 8%, 75%);
   &:focus {
     outline: none;
-    border-color: transparent hsl(206, 90%, 69.5%);
-    box-shadow: 0px 0px 10px hsl(206, 90%, 69.5%);
+    border-color: hsl(206, 90%, 69.5%);
+    box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
   }
   font-size: 15px;
 `;
+
+const ModalContainer = styled.div`
+  box-sizing: border-box;
+  margin-top: 180px;
+  margin-left: 5px;
+  padding: 0px 5px;
+  height: 180px;
+  width: 900px;
+  background: gray;
+  border-color: hsl(210, 8%, 75%);
+  display: flex;
+  color: hsl(210, 8%, 25%);
+  padding: 12px;
+`;
+const ModalView = styled.div`
+  /* display: flex; */
+  text-align: left;
+  /* justify-content: center; */
+  margin-top: 5px;
+  margin-left: 30px;
+  color: black;
+  background: #eee;
+  height: 120px;
+  width: 900px;
+  padding: 8px 20px;
+  border-radius: 20px;
+  > div {
+    margin-left: 10px;
+  }
+  > .first {
+    color: black;
+    padding-top: 44px;
+  }
+  > .second {
+    color: gray;
+    padding-top: 30px;
+  }
+`;
+
+const HintItems = styled.div`
+  flex-basis: 50%;
+`;
+const HintItem = styled.span`
+  box-sizing: border-box;
+  margin-bottom: 12px !important;
+`;
+
 const LoginBtn = styled.button`
   margin: 4px 4px 4px 10px;
   padding: 5px;
@@ -166,7 +216,7 @@ const SignupBtn = styled.button`
   border-radius: 3px;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
-  /* user-select: none; */
+  user-select: none;
 
   &:hover {
     background-color: hsl(205, 47%, 42%);
@@ -175,22 +225,54 @@ const SignupBtn = styled.button`
 `;
 
 function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModalHandler = () => {
+    console.log('hi');
+    setIsOpen(!isOpen);
+  };
   return (
     <NavContainer>
-      <NavBoxCotain>
-        <FlowLogo src={stackoverflow_logo} alt="logo" />
-        <BtnContainer>
-          <AboutBtn>About</AboutBtn>
-          <ProductsBtn>Products</ProductsBtn>
-          <ForTeamsBtn>For Teams</ForTeamsBtn>
-        </BtnContainer>
+      <FlowLogo src={stackoverflow_logo} alt="logo" />
+      <BtnContainer>
+        <AboutBtn>About</AboutBtn>
+        <ProductsBtn>Products</ProductsBtn>
+        <ForTeamsBtn>For Teams</ForTeamsBtn>
+      </BtnContainer>
+      <SearchModalContainer>
         <SearchContainer>
           <img src={MagnifyingGlass} alt="searchicon" />
-          <SearchInput type="text" placeholder="Search..." />
+          <SearchInput
+            type="text"
+            placeholder="Search..."
+            onClick={openModalHandler}
+          />
         </SearchContainer>
-        <LoginBtn>Log in</LoginBtn>
-        <SignupBtn>Sign up</SignupBtn>
-      </NavBoxCotain>
+        {isOpen ? (
+          <ModalContainer>
+            <ModalView>
+              <div className="hint1">
+                <span className="first">[tag]</span>
+                <span className="second">search within a tag</span>
+              </div>
+              <div>
+                <span>user:1234</span>
+                <span>search by author</span>
+              </div>
+              <div>
+                <span>&quot;words here&quot;</span>
+                <span>exact phrase</span>
+              </div>
+              <div>
+                <span>collective:</span>
+                <span>&quot;Name&quot; collective content</span>
+              </div>
+            </ModalView>
+          </ModalContainer>
+        ) : null}
+      </SearchModalContainer>
+      <LoginBtn>Log in</LoginBtn>
+      <SignupBtn>Sign up</SignupBtn>
     </NavContainer>
   );
 }
