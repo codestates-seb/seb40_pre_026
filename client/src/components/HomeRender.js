@@ -5,7 +5,7 @@ const RenderContain = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 72px;
-  margin-left: 180px;
+  margin-left: 190px;
   width: 80%;
   height: 100%;
   border-left: 1px solid lightgray;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
+import { useNavigate } from 'react-router-dom';
 
 const NavContainer = styled.div`
   box-sizing: border-box;
@@ -232,10 +233,16 @@ const SignupBtn = styled.button`
 `;
 
 function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
+  const navigate = useNavigate();
+
   return (
     <NavContainer>
       <NavBoxCotain>
-        <FlowLogo src={stackoverflow_logo} alt="logo" />
+        <FlowLogo
+          src={stackoverflow_logo}
+          alt="logo"
+          onClick={(e) => navigate('/')}
+        />
         <BtnContainer>
           <AboutBtn>About</AboutBtn>
           <ProductsBtn>Products</ProductsBtn>
@@ -295,8 +302,8 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
             </SearchItemContainer>
           ) : null}
         </SearchContainer>
-        <LoginBtn>Log in</LoginBtn>
-        <SignupBtn>Sign up</SignupBtn>
+        <LoginBtn onClick={(e) => navigate('/login')}>Log in</LoginBtn>
+        <SignupBtn onClick={(e) => navigate('/signup')}>Sign up</SignupBtn>
       </NavBoxCotain>
     </NavContainer>
   );

@@ -11,6 +11,7 @@ const SignUpContain = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-top: 200px;
 `;
 
 const LeftContain = styled.div`

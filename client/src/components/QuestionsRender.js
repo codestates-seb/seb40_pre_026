@@ -5,7 +5,7 @@ const RenderContain = styled.div`
   padding-top: 72px;
   display: flex;
   flex-direction: row;
-  margin-left: 180px;
+  margin-left: 190px;
   width: 80%;
   height: 100%;
   border-left: 1px solid lightgray;
@@ -340,8 +340,22 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
             })}
           </MainRender>
           <BottomContents>
-            <PageNation>PageNation space</PageNation>
-            <PageNation>PageNation space</PageNation>
+            <PageNation>
+              <div className="s-pagination">
+                <span
+                  className="s-pagination--item is-selected"
+                  aria-current="page"
+                >
+                  1
+                </span>
+                <a className="s-pagination--item" href="…">
+                  2
+                </a>
+                <a className="s-pagination--item" href="…">
+                  3
+                </a>
+              </div>
+            </PageNation>
           </BottomContents>
         </MainRenderSpace>
       </RightSide>

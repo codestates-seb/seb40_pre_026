@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   width: 288.45px;
+  margin: 300px;
 `;
 
 const GitHubLogin = styled.button`

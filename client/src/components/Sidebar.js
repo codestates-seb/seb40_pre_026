@@ -8,10 +8,11 @@ import {
   faCertificate,
   faSuitcase,
 } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const SidebarContainer = styled.nav`
   background-color: #fff;
-  width: 180px;
+  width: 190px;
   /* padding: 20px 0px 10px 10px; */
   margin-top: 70px;
   /* margin-left: 110px; */
@@ -93,6 +94,7 @@ const HomeNavLinkStyle = styled(NavLink)`
 `;
 
 export function Sidebar() {
+  const navigate = useNavigate();
   return (
     <SidebarContainer>
       <ul>
@@ -113,7 +115,7 @@ export function Sidebar() {
             Tags
           </NavLinkStyle>
         </SidebarList>
-        <SidebarList>
+        {/* <SidebarList>
           <NavLinkStyle end to="/users" className="link public">
             Users
           </NavLinkStyle>
@@ -122,7 +124,7 @@ export function Sidebar() {
           <NavLinkStyle end to="/companies" className="link public">
             Companies
           </NavLinkStyle>
-        </SidebarList>
+        </SidebarList> */}
         <SidebarList>
           <div className="info">
             COLLECTIVES
