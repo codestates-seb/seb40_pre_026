@@ -12,6 +12,7 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   width: 500px;
+  margin-top: 300px;
 `;
 
 const P = styled.p`

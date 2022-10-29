@@ -213,6 +213,23 @@ const LoginBtn = styled.button`
   font-size: 13px;
 `;
 
+const LogoutBtn = styled.button`
+  margin: 4px 4px 4px 10px;
+  padding: 5px;
+  width: 59px;
+  height: 33px;
+  background-color: #e1ecf4;
+  color: #39739d;
+  font-size: 13px;
+  border: solid 1px hsl(205, 41%, 63%);
+  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+  &:hover {
+    background-color: hsl(205, 56%, 76%);
+  }
+  cursor: pointer;
+  font-size: 13px;
+`;
+
 const SignupBtn = styled.button`
   margin: 0px 0px 0px 4px;
   padding: 5px;
@@ -238,6 +255,7 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   return (
     <NavContainer>
       <NavBoxCotain>
+        <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn>
         <FlowLogo
           src={stackoverflow_logo}
           alt="logo"
