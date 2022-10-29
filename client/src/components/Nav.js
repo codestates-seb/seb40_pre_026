@@ -5,14 +5,14 @@ import MagnifyingGlass from '../image/magnifyingGlass.png';
 import { useNavigate } from 'react-router-dom';
 
 const NavContainer = styled.div`
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   position: fixed;
   margin: 0px;
   width: 100%;
   display: flex;
   height: 58px;
   background-color: hsl(210, 8%, 97.5%);
-  border-top: solid 5px hsl(27, 90%, 55%);
+  border-top: solid 3px hsl(27, 90%, 55%);
   box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
     0 3px 8px hsla(0, 0%, 0%, 0.09);
 `;
@@ -22,7 +22,6 @@ const NavBoxCotain = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0 100px;
   width: 100%;
 `;
 
@@ -123,6 +122,9 @@ const SearchInput = styled.input`
     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
   }
   font-size: 15px;
+  @media screen and (max-width: 1200px) {
+    width: 95%;
+  }
 `;
 const SearchItemContainer = styled.div`
   display: flex;

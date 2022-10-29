@@ -4,6 +4,7 @@ import { userIdSelector, isLoggedInSelector } from '../redux/hooks';
 import { setId, setIsLoggedin, deleteId } from '../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -86,6 +87,7 @@ const CancelButton = styled(LogoutButton)`
 `;
 
 const Logout = () => {
+  const navigate = useNavigate();
   const email = useSelector(userIdSelector);
   const loggedIn = useSelector(isLoggedInSelector);
   const dispatch = useDispatch();
