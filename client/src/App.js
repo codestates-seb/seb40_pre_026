@@ -1,10 +1,9 @@
 import React from 'react';
-import Users from './components/Users';
-
+import MainPage from './pages/Main';
 function App() {
   return (
     <div>
-      <Users></Users>
+      <MainPage />
     </div>
   );
 }
