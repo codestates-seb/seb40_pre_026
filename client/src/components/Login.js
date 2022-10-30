@@ -154,29 +154,34 @@ const Login = () => {
 
   const loginRequestHandler = () => {
     if (!loginInfo.email || !loginInfo.password) {
-      alert('Email cannot be empty.'); //TODO: 추가 작업 필요
-      alert('Password cannot be empty.');
+      alert('Please check your email and password.'); //TODO: 추가 작업 필요
       return;
     }
 
     console.log(loginInfo);
 
-    return axios
-      .post('https://7b6e-218-158-78-87.jp.ngrok.io/users/login', loginInfo)
-      .then((res) => {
-        //res로 받아온 user정보와 jwt토큰을 redux와 로컬스토리지로 처리
-        window.localStorage.setItem('email', res.data.body.email);
-        window.localStorage.setItem(
-          'jwtToken',
-          res.data.body.tokenInfo.accessToken
-        );
-        dispatch(setId(res.data.body.email));
-        dispatch(setIsLoggedin(true));
-      })
-      .catch((err) => {
-        console.log(err);
-        alert('로그인 실패');
-      });
+    // Test
+    dispatch(setId(loginInfo.email));
+    dispatch(setIsLoggedin(true));
+    window.localStorage.setItem('email', loginInfo.email);
+    //
+
+    // return axios
+    //   .post('https://7b6e-218-158-78-87.jp.ngrok.io/users/login', loginInfo)
+    //   .then((res) => {
+    //     //res로 받아온 user정보와 jwt토큰을 redux와 로컬스토리지로 처리
+    //     window.localStorage.setItem('email', res.data.body.email);
+    //     window.localStorage.setItem(
+    //       'jwtToken',
+    //       res.data.body.tokenInfo.accessToken
+    //     );
+    //     dispatch(setId(res.data.body.email));
+    //     dispatch(setIsLoggedin(true));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     alert('로그인 실패');
+    //   });
   };
 
   return (

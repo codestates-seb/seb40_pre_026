@@ -6,8 +6,21 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPages from './pages/LoginPage';
 import LogoutPages from './pages/LogoutPage';
 import SignupPages from './pages/SignupPage';
+import { useEffect } from 'react';
+import { setId, setIsLoggedin } from './redux/userSlice';
+import { userIdSelector, isLoggedInSelector } from './redux/hooks';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const loggedInEmail = window.localStorage.getItem('email');
+    if (loggedInEmail !== null) {
+      dispatch(setId(loggedInEmail));
+      dispatch(setIsLoggedin(true));
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

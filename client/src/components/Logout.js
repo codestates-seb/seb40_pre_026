@@ -93,30 +93,35 @@ const Logout = () => {
   const dispatch = useDispatch();
   console.log(loggedIn);
 
-  // .default.headers.common['Authorization'] = `Bearer ${jwtToken}`
   const logoutRequestHandler = () => {
-    const jwtToken = window.localStorage.getItem('jwtToken');
-    if (jwtToken === undefined) return;
+    const loggedInEmail = window.localStorage.getItem('email');
+    if (loggedInEmail === undefined) return;
 
-    return axios
-      .post(
-        'https://7b6e-218-158-78-87.jp.ngrok.io/users/logout',
-        { email: email },
-        {
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        }
-      )
-      .then(() => {
-        window.localStorage.removeItem('jwtToken');
-        window.localStorage.removeItem('email');
-        dispatch(deleteId());
-        dispatch(setIsLoggedin(false));
-        //TODO: redux, 로컬스토리지로 로그인 정보 초기화, 토큰 삭제
-        //이후 메인 화면으로 리다이렉트
-      })
-      .catch((err) => console.log(err));
+    dispatch(deleteId());
+    dispatch(setIsLoggedin(false));
+    window.localStorage.removeItem('email');
+
+    // const jwtToken = window.localStorage.getItem('jwtToken');
+    // if (jwtToken === undefined) return;
+    // return axios
+    //   .post(
+    //     'https://7b6e-218-158-78-87.jp.ngrok.io/users/logout',
+    //     { email: email },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${jwtToken}`,
+    //       },
+    //     }
+    //   )
+    //   .then(() => {
+    //     window.localStorage.removeItem('jwtToken');
+    //     window.localStorage.removeItem('email');
+    //     dispatch(deleteId());
+    //     dispatch(setIsLoggedin(false));
+    //     //TODO: redux, 로컬스토리지로 로그인 정보 초기화, 토큰 삭제
+    //     //이후 메인 화면으로 리다이렉트
+    //   })
+    //   .catch((err) => console.log(err));
   };
   return (
     <Container>
