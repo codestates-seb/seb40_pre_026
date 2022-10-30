@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 const QuestionContain = styled.div`
   padding-top: 60px;
@@ -12,7 +14,6 @@ const RenderHead = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-left: -20px;
 `;
 const RenderSubHead = styled.div`
   display: flex;
@@ -30,7 +31,6 @@ const RenderSubData = styled.div`
 `;
 
 const RenderHomeHead = styled.h1`
-  margin: 20px;
   font-weight: 400;
 `;
 
@@ -55,12 +55,37 @@ const SearchBtn = styled.button`
     font-size: 13px;
   }
 `;
+const PostBtn = styled.button`
+  text-align: center;
+  margin: 20px 0 20px 20px;
+  padding: 10px;
+  font-weight: 500;
+  width: 150px;
+  height: 37px;
+  background-color: #0a95ff;
+  color: #ffffff;
+  font-size: 13px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+  cursor: pointer;
+  /* user-select: none; */
+
+  &:hover {
+    background-color: hsl(205, 47%, 42%);
+    font-size: 13px;
+  }
+`;
 
 const Line = styled.div`
   width: 100%;
   border-bottom: 1px solid lightgray;
   margin-top: -30px;
   margin-bottom: 20px;
+`;
+const ContentsLine = styled.div`
+  width: 100%;
+  border-bottom: 1px solid lightgray;
 `;
 const MainQuestion = styled.div`
   font-size: 14px;
@@ -88,6 +113,13 @@ const Tags = styled.button`
 `;
 
 const MainQuestions = () => {
+  const [text, setText] = useState('');
+  const editorRef = React.createRef();
+  const onChange = () => {
+    const data = editorRef.current.getInstance().getHTML(); // getHTML or getMarkdown
+    setText(data);
+    console.log(text);
+  };
   return (
     <QuestionContain>
       {' '}
@@ -128,6 +160,18 @@ const MainQuestions = () => {
       <TagContain>
         <Tags>JS Script</Tags>
       </TagContain>
+      <RenderHomeHead>0 Answer</RenderHomeHead>
+      <ContentsLine />
+      <RenderHomeHead>Your Answer</RenderHomeHead>
+      <Editor
+        initialValue="<strong>Testing</strong>" // 초기 입력값
+        previewStyle="vertical" // vertical로 설정시 미리보기 화면 분할가능
+        height="300px"
+        initialEditType="markdown" // markdown or wysiwyg
+        ref={editorRef}
+        onChange={onChange}
+      />
+      <PostBtn> Post Your Answer</PostBtn>
     </QuestionContain>
   );
 };
