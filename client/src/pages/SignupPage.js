@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
-import Signup from '../components/Signup';
+import Signup from '../components/signup';
 
 const SignupContain = styled.div`
   display: flex;

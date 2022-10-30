@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
+import { useNavigate } from 'react-router-dom';
 const RenderContain = styled.div`
   padding-top: 72px;
   display: flex;
@@ -237,6 +237,8 @@ const BottomContents = styled.div`
 `;
 
 const QuestionRenderPage = ({ modalCloseHandler }) => {
+  const navigate = useNavigate();
+  const btnhandler = (onclick = (event) => {});
   //   const [userCount, setUserCount] = useEffect('');
   const dummyData = [
     //[1,2,3,4.5] [1에 대한 함수 리턴값,2에 대한 함수 리턴값,3에 대한 함수 리턴값,4에 대한 함수 리턴값]
@@ -299,7 +301,7 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
       <RightSide>
         <RenderHead>
           <RenderHomeHead>All Questions</RenderHomeHead>
-          <SearchBtn> Ask Question</SearchBtn>
+          <SearchBtn onClick={(e) => navigate('/ask')}> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
           <TotalQuestions>questions length</TotalQuestions>

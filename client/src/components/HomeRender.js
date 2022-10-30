@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const RenderContain = styled.div`
   display: flex;
@@ -185,6 +186,7 @@ const Tags = styled.button`
 `;
 const RenderPage = ({ modalCloseHandler }) => {
   //   const [userCount, setUserCount] = useEffect('');
+  const navigate = useNavigate();
   const dummyData = [
     {
       vote: 2,
@@ -234,7 +236,7 @@ const RenderPage = ({ modalCloseHandler }) => {
         {' '}
         <RenderHead>
           <RenderHomeHead>Top Questions</RenderHomeHead>
-          <SearchBtn> Ask Question</SearchBtn>
+          <SearchBtn onClick={(e) => navigate('/ask')}> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
           <LeftOptionBtn>interesting</LeftOptionBtn>
