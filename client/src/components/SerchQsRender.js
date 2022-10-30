@@ -298,7 +298,7 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
     <RenderContain onClick={modalCloseHandler}>
       <RightSide>
         <RenderHead>
-          <RenderHomeHead>All Questions</RenderHomeHead>
+          <RenderHomeHead>{`Questions tagged [inputValue]`}</RenderHomeHead>
           <SearchBtn> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
