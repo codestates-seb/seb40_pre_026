@@ -89,7 +89,8 @@ const ContentsLine = styled.div`
 `;
 const MainQuestion = styled.div`
   font-size: 14px;
-  width: 50%;
+  width: 60%;
+  word-break: keep-all;
 `;
 const TagContain = styled.div`
   display: flex;
