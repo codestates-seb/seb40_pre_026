@@ -185,6 +185,7 @@ const Tags = styled.button`
   font-size: 13px;
 `;
 const RenderPage = ({ modalCloseHandler }) => {
+  const navigate = useNavigate();
   //   const [userCount, setUserCount] = useEffect('');
   const navigate = useNavigate();
   const dummyData = [
@@ -258,8 +259,12 @@ const RenderPage = ({ modalCloseHandler }) => {
                     <SmallText>{x.views} views</SmallText>
                   </RenderLeft>
                   <RenderRight>
-                    <QuestionHeader>{x.title}</QuestionHeader>
-                    <QuestionContent>{x.question}</QuestionContent>
+                    <QuestionHeader onClick={(e) => navigate('/AskQuestions')}>
+                      {x.title}
+                    </QuestionHeader>
+                    <QuestionContent onClick={(e) => navigate('/AskQuestions')}>
+                      {x.question}
+                    </QuestionContent>
                     <TagContain>
                       {x.tags &&
                         x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}

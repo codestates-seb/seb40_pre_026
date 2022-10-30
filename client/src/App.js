@@ -39,7 +39,7 @@ function App() {
         <Route path="/login" element={<LoginPages />} />
         <Route path="/logout" element={<LogoutPages />} />
         <Route path="/signup" element={<SignupPages />} />
-        <Route path="/ask" element={<AskPage />} />
+        <Route path="/AskQuestions" element={<AskTheQuestions />} />
       </Routes>
     </BrowserRouter>
   );
