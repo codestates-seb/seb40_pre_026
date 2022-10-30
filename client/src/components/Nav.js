@@ -316,7 +316,12 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
                 </li>
               </SearchItem>
               <SearchItem_bottom>
-                <button className="questionBtn">ask a question</button>
+                <button
+                  className="questionBtn"
+                  onClick={(e) => navigate('/ask')}
+                >
+                  ask a question
+                </button>
                 <span className="help">Search help</span>
               </SearchItem_bottom>
             </SearchItemContainer>
