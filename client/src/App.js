@@ -19,6 +19,8 @@ function App() {
     const loggedInEmail = window.localStorage.getItem('email');
     if (loggedInToken !== null || loggedInEmail !== null) {
       // 새로고침을or 브라우저를 다시 켰을때 로그인 정보 남아있는지 확인
+      console.log(loggedInToken);
+      console.log(typeof loggedInToken);
       dispatch(setToken(loggedInToken));
       dispatch(setId(loggedInEmail));
       dispatch(setIsLoggedin(true));
