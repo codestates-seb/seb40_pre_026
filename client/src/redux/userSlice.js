@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { id: -1, isLoggedIn: false };
+const initialState = { id: -1, isLoggedIn: false, token: -1 };
 
 const userSlice = createSlice({
   name: 'user',
@@ -12,13 +12,16 @@ const userSlice = createSlice({
     setIsLoggedin: (state, action) => {
       state.isLoggedIn = action.payload;
     },
-    deleteId: (state) => {
-      state.id = -1;
+    setToken: (state, action) => {
+      state.token = action.payload;
     },
   },
 });
 
-export const { setId, setIsLoggedin, deleteId } = userSlice.actions;
+// 1. 페이지 로딩 시 로그인 여부는 토큰으로 확인
+//
+
+export const { setId, setIsLoggedin, setToken } = userSlice.actions;
 export default userSlice.reducer;
 
 // extraReducers: (builder) => {

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { userIdSelector, isLoggedInSelector } from '../redux/hooks';
-import { setId, setIsLoggedin, deleteId } from '../redux/userSlice';
+import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { url } from '../url';
 
 const Container = styled.div`
   display: flex;
@@ -93,25 +94,34 @@ const Logout = () => {
   const dispatch = useDispatch();
   console.log(loggedIn);
 
-  // .default.headers.common['Authorization'] = `Bearer ${jwtToken}`
   const logoutRequestHandler = () => {
-    const jwtToken = window.localStorage.getItem('jwtToken');
-    if (jwtToken === undefined) return;
+    const loggedInToken = window.localStorage.getItem('jwtToken');
+    const loggedInEmail = window.localStorage.getItem('email');
+
+    if (loggedInToken === null || loggedInEmail === null) return;
+
+    dispatch(setId(-1));
+    dispatch(setToken(-1));
+    dispatch(setIsLoggedin(false));
+    window.localStorage.removeItem('email');
+
+    // const jwtToken = window.localStorage.getItem('jwtToken');
+    // if (jwtToken === undefined) return;
 
     return axios
       .post(
-        'https://7b6e-218-158-78-87.jp.ngrok.io/users/logout',
-        { email: email },
+        url + '/users/logout',
+        { email: loggedInEmail },
         {
           headers: {
-            Authorization: `Bearer ${jwtToken}`,
+            Authorization: `Bearer ${loggedInToken}`,
           },
         }
       )
       .then(() => {
         window.localStorage.removeItem('jwtToken');
         window.localStorage.removeItem('email');
-        dispatch(deleteId());
+        dispatch(setId(-1));
         dispatch(setIsLoggedin(false));
         //TODO: redux, 로컬스토리지로 로그인 정보 초기화, 토큰 삭제
         //이후 메인 화면으로 리다이렉트
