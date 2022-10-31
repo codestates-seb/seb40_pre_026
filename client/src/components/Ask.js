@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import { useNavigate } from 'react-router-dom';
 import { Editor } from '@toast-ui/react-editor';
-import { url } from '../url';
+import url from '../url';
 import useInput from './useInput';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -13,6 +13,7 @@ import {
   jwtTokenSelector,
 } from '../redux/hooks';
 import { useSelector } from 'react-redux';
+import Tag from './Tag';
 
 const AskContainer = styled.div`
   display: flex;
@@ -214,56 +215,49 @@ const NoBtn = styled.button`
 `;
 
 const Ask = () => {
-  const [titleValue, titleBind, titleReset] = useInput('');
-  const [bodyValue, bodyBind, bodyReset] = useInput('');
-  const [tagsValue, tagsBind, tagsReset] = useInput('');
-  // const [text, setText] = useState('');
-  const editorRef = React.createRef();
-  const onChange = () => {
-    const data = editorRef.current.getInstance().getHTML(); // getHTML or getMarkdown
-    setText(data);
-    // console.log(text);
+  // const [bodyValue, bodyBind, bodyReset] = useInput('');
+  // const [tagsValue, tagsBind, tagsReset] = useInput('');
+  // const onChange = () => {
+  //   setText(data);
+  // };
+
+  const jwtToken = useSelector(jwtTokenSelector);
+  const email = useSelector(userIdSelector);
+  const [titleValue, titleBind] = useInput('');
+  const [tagList, setTagList] = useState([]);
+  const editorRef = useRef();
+  const [modalOn, setModalOn] = useState(true);
+
+  const closeModal = () => {
+    setModalOn(false);
   };
-  const [modalOn, setModalOn] = useState(false);
-
-  const onOpenModal = () => {
-    setModalOn(!modalOn);
-  };
-
-  //   const closeModal = () => {
-  //     console.log('key up');
-  //     setModalOn(modalOn);
-  //   };
-
-  //   useEffect(() => {
-  //     console.log('return');
-  //   }, [!setModalOn]);
 
   const submit = () => {
-    if (titleValue === '' || bodyValue === '') {
+    const data = editorRef.current?.getInstance().getHTML(); // getHTML or getMarkdown
+
+    if (titleValue === '' || data === '<p><br></p>') {
       alert('Title and body field required.');
       return;
     }
 
-    const jwtToken = useSelector(jwtTokenSelector);
-    const email = useSelector(userIdSelector);
-
     if (jwtToken === -1 || email === -1) return;
-
-    const tags = tagsValue.split(' ').join('').toLowerCase().split(',');
 
     axios
       .post(
         url + '/questions/register',
-        { email: email, title: titleValue, content: bodyValue, tags: tags },
+        { email: email, title: titleValue, content: data, tags: tagList },
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
         }
       )
-      .then((_) => alert('Question submitted!'));
+      .then((_) => alert('Your question was successfully submitted!'));
   };
+
+  // tagsInput에 태그 입력 후 쉼표 입력
+  // 이때 쉼표 앞의 글자가 태그 컴포넌트로 변환되어 tagsInput 아래나 위에 추가됨
+  // 목록.map()
 
   return (
     <AskContainer>
@@ -284,14 +278,12 @@ const Ask = () => {
           <TitleInput
             type="text"
             placeholder="e.g. is there an R function for finding the index of an element in a vector?"
-            onClick={onOpenModal}
-            // onKeyUp={closeModal}
             {...titleBind}
           ></TitleInput>
         </Title>
 
         {modalOn ? (
-          <ModalBackdrop onClick={onOpenModal}>
+          <ModalBackdrop onClick={closeModal}>
             <Modal>
               <span className="infoHeader">Asking a good question</span>
               <br />
@@ -323,8 +315,7 @@ const Ask = () => {
               </li>
               <span>You&apos;ll find more tips in the sidebar</span>
               <BtnContain>
-                <WritingBtn>Start Writing</WritingBtn>
-                <NoBtn>Don&apos;t show me this again</NoBtn>
+                <WritingBtn onClick={closeModal}>Start Writing</WritingBtn>
               </BtnContain>
             </Modal>
           </ModalBackdrop>
@@ -342,20 +333,19 @@ const Ask = () => {
             height="300px"
             initialEditType="markdown" // markdown or wysiwyg
             ref={editorRef}
-            {...bodyBind}
           />
         </Body>
         <Tags>
           <span className="boldtitle">Tags</span>
           <br></br>
-          Add up to 5 tags to describe what your question is about (separated by
-          comma)
+          Add up to 5 tags to describe what your question is about
         </Tags>
-        <TagsInput
+        {/* <TagsInput
           type="text"
           placeholder="e.g (node.js vba android)"
           {...tagsBind}
-        ></TagsInput>
+        ></TagsInput> */}
+        <Tag tagList={tagList} setTagList={setTagList} />
       </TextContainer>
       <ReviewBtn
         onClick={() => {

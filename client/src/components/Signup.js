@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import icon from '../image/github.png';
 import useInput from './useInput';
 import axios from 'axios';
+import url from '../url';
 
 const SignUpContain = styled.div`
   /* margin-top: 100px; */
@@ -178,7 +179,7 @@ const Signup = () => {
     };
 
     axios
-      .post('https://7b6e-218-158-78-87.jp.ngrok.io/users/sign', signupInfo)
+      .post(url + '/users/sign', signupInfo)
       .then((res) => {
         console.log('Sign Up!');
         console.log(res.data);
