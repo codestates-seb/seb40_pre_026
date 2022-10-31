@@ -238,7 +238,7 @@ const BottomContents = styled.div`
 
 const QuestionRenderPage = ({ modalCloseHandler }) => {
   const navigate = useNavigate();
-  const btnhandler = (onclick = (event) => {});
+  // const btnhandler = (onclick = (event) => {});
   //   const [userCount, setUserCount] = useEffect('');
   const dummyData = [
     //[1,2,3,4.5] [1에 대한 함수 리턴값,2에 대한 함수 리턴값,3에 대한 함수 리턴값,4에 대한 함수 리턴값]

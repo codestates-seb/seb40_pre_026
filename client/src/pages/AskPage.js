@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
 import Ask from '../components/Ask';
+import Footer from '../components/Footer';
 
 const AskContain = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const AskPage = () => {
     <AskContain>
       <Nav />
       <Ask></Ask>
+      <Footer></Footer>
     </AskContain>
   );
 };

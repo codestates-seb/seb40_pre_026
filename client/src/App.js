@@ -7,8 +7,24 @@ import LoginPages from './pages/LoginPage';
 import LogoutPages from './pages/LogoutPage';
 import SignupPages from './pages/SignupPage';
 import AskPage from './pages/AskPage';
+import { useEffect } from 'react';
+import { setId, setIsLoggedin, setToken } from './redux/userSlice';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loggedInToken = window.localStorage.getItem('jwtToken');
+    const loggedInEmail = window.localStorage.getItem('email');
+    if (loggedInToken !== null || loggedInEmail !== null) {
+      // 새로고침을or 브라우저를 다시 켰을때 로그인 정보 남아있는지 확인
+      dispatch(setToken(loggedInToken));
+      dispatch(setId(loggedInEmail));
+      dispatch(setIsLoggedin(true));
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
