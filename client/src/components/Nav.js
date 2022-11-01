@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faUser,
+  faInbox,
+  faCircleQuestion,
+} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
 import {
@@ -227,7 +233,7 @@ const LoginBtn = styled.button`
 const LogoutBtn = styled.button`
   margin: 4px 4px 4px 10px;
   padding: 5px;
-  width: 59px;
+  width: 70px;
   height: 33px;
   background-color: #e1ecf4;
   color: #39739d;
@@ -260,6 +266,13 @@ const SignupBtn = styled.button`
   }
 `;
 
+const IconContain = styled.div`
+  margin: 5px;
+  .icon {
+    margin: 10px;
+  }
+`;
+
 function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   const navigate = useNavigate();
 
@@ -273,25 +286,32 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
 
   const Token = window.localStorage.getItem('jwtToken');
 
-  const logoutHandler = () => {
-    dispatch(setIsLoggedin(false));
-    localStorage.removeItem(Token);
-    navigate('/');
-  };
+  // const logoutHandler = () => {
+  //   dispatch(setIsLoggedin(false));
+  //   localStorage.removeItem(Token);
+  //   navigate('/');
+  // };
 
   return (
     <NavContainer>
       <NavBoxCotain>
-        <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn>
         <FlowLogo
           src={stackoverflow_logo}
           alt="logo"
           onClick={(e) => navigate('/')}
         />
         <BtnContainer>
-          <AboutBtn>About</AboutBtn>
+          {!isLoggedIn && (
+            <>
+              <AboutBtn>About</AboutBtn>
+            </>
+          )}
           <ProductsBtn>Products</ProductsBtn>
-          <ForTeamsBtn>For Teams</ForTeamsBtn>
+          {!isLoggedIn && (
+            <>
+              <ForTeamsBtn>For Teams</ForTeamsBtn>
+            </>
+          )}
         </BtnContainer>
         <SearchContainer>
           <img src={MagnifyingGlass} alt="searchicon" />
@@ -352,8 +372,25 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
             </SearchItemContainer>
           ) : null}
         </SearchContainer>
-        <LoginBtn onClick={(e) => navigate('/login')}>Log in</LoginBtn>
-        <SignupBtn onClick={(e) => navigate('/signup')}>Sign up</SignupBtn>
+        {!isLoggedIn ? (
+          <>
+            <LoginBtn onClick={(e) => navigate('/login')}>Log in</LoginBtn>
+            <SignupBtn onClick={(e) => navigate('/signup')}>Sign up</SignupBtn>
+          </>
+        ) : (
+          <>
+            <IconContain>
+              <FontAwesomeIcon icon={faUser} className="icon" size="lg" />
+              <FontAwesomeIcon icon={faInbox} className="icon" size="lg" />
+              <FontAwesomeIcon
+                icon={faCircleQuestion}
+                className="icon"
+                size="lg"
+              />
+            </IconContain>
+            <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn>
+          </>
+        )}
       </NavBoxCotain>
     </NavContainer>
   );
