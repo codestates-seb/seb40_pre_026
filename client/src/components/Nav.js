@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
 import { useNavigate } from 'react-router-dom';
+import { setSearchKeyword } from '../redux/userSlice';
+import { useDispatch } from 'react-redux';
 
 const NavContainer = styled.div`
   /* box-sizing: border-box; */
@@ -253,6 +255,15 @@ const SignupBtn = styled.button`
 
 function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchInput, setSearchInput] = useState('');
+
+  const search = () => {
+    if (searchInput === '') return;
+    dispatch(setSearchKeyword(searchInput));
+    window.sessionStorage.setItem('keyword', searchInput);
+    navigate('/search');
+  };
 
   return (
     <NavContainer>
@@ -274,6 +285,8 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
             type="text"
             placeholder="Search..."
             onClick={ModalItem}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={(e) => (e.key === 'Enter' ? search() : null)}
           />
           {dropdownIsOpen ? (
             <SearchItemContainer>
