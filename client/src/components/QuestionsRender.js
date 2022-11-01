@@ -213,9 +213,23 @@ const QuestionContent = styled.div`
   font-weight: 400;
 `;
 
+const TagAndUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 const TagContain = styled.div`
   display: flex;
   flex-direction: row;
+`;
+const User = styled.div`
+  font-size: 15px;
+  margin-right: 10px;
+  color: gray;
+
+  .user {
+    margin-right: 10px;
+  }
 `;
 const Tags = styled.button`
   margin: 8px 5px 5px 0px;
@@ -246,28 +260,86 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
   console.log(url);
   const [qData, setQData] = useState([]);
   const jwtToken = window.localStorage.getItem('jwtToken');
-  const header = {
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc2RmQG5hdmVyLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjcyOTAwMDF9.F1TIe9rYhbD-Zb2fF0zqX3Nfuw1qdfvzuNeQkLHoNYTYS1LCd5kp-tMDTSOo7d3b9s4awvwlx9vMyWm-H14Qqg',
-    },
-    'ngrok-skip-browser-warning': 'skip',
+
+  // 더미 데이터 (삭제 예정)
+  const dummyData = {
+    status: 'OK',
+    data: [
+      {
+        questionI: 1,
+        user: {
+          created_at: '2022-11-01T13:57:50.315993',
+          updated_at: '2022-11-01T13:53:30.315993',
+          userI: 1,
+          nickName: 'dsaf',
+          email: 'chlrh',
+        },
+        title: '제목 : 26하조 ',
+        content: '내용 들어갈 자리',
+        totalLike: 0,
+        totalViewed: 0,
+        totalAnswers: 0,
+        created_at: '2022-10-27T14:48:47.484629',
+        updated_at: '2022-10-27T14:48:47.484629',
+        tags: ['javascript', 'java', 'spring'],
+      },
+      {
+        questionI: 2,
+        user: {
+          created_at: '2022-10-27T14:48:44.315993',
+          updated_at: '2022-10-27T14:48:44.315993',
+          userI: 1,
+          nickName: 'dsaf',
+          email: 'chlrh',
+        },
+        title: '제목 : 26하조 ',
+        content: '내용 들어갈 자리',
+        totalLike: 0,
+        totalViewed: 0,
+        totalAnswers: 0,
+        created_at: '2022-10-27T14:48:48.202426',
+        updated_at: '2022-10-27T14:48:48.202426',
+        tags: ['javascript', 'java', 'spring'],
+      },
+    ],
   };
 
-  const getData = () => {
-    axios
-      .get('/api/questions/', header, { withCredentials: true })
-      .then((res) => {
-        setQData([res.data]);
-        console.log('질문 불러오기');
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  function Timediff(writtenTime) {
+    // const writtenTime = )new Date(dummyData.data[0].user.created_at;
+    const now = new Date();
+    let time = now.getTime() - writtenTime.getTime();
+    let unit = '';
+    if (parseInt(time / 1000) < 60) {
+      return parseInt(time / 1000) + ' secs';
+    } else if (parseInt(time / (1000 * 60)) < 60) {
+      return parseInt(time / (1000 * 60)) + ' mins';
+    } else if (parseInt(time / (1000 * 60 * 60)) < 60) {
+      return parseInt(time / (1000 * 60 * 60)) + ' hours';
+    }
+  }
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // const header = {
+  //   headers: {
+  //     Authorization:
+  //       'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc2RmQG5hdmVyLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjcyOTAwMDF9.F1TIe9rYhbD-Zb2fF0zqX3Nfuw1qdfvzuNeQkLHoNYTYS1LCd5kp-tMDTSOo7d3b9s4awvwlx9vMyWm-H14Qqg',
+  //   },
+  //   'ngrok-skip-browser-warning': 'skip',
+  // };
+
+  // const getData = () => {
+  //   axios
+  //     .get('/api/questions/', header, { withCredentials: true })
+  //     .then((res) => {
+  //       setQData([res.data]);
+  //       console.log('질문 불러오기');
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <RenderContain onClick={modalCloseHandler}>
@@ -294,6 +366,47 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
         <Line />
         <MainRenderSpace>
           <MainRender>
+            {dummyData.data.map((question, idx) => {
+              return (
+                <ContentsBox key={idx}>
+                  <RenderLeft>
+                    <Votes>{question.totalLike} votes</Votes>
+                    <SmallText>{question.totalAnswers} answers</SmallText>
+                    <SmallText>{question.totalViewed} views</SmallText>
+                  </RenderLeft>
+                  <RenderRight>
+                    <QuestionHeader
+                      onClick={(e) =>
+                        navigate(`/AnswerTheQuestions?q=${question.questionI}`)
+                      }
+                    >
+                      {question.title}
+                    </QuestionHeader>
+                    <QuestionContent>{question.content}</QuestionContent>
+                    <TagAndUser>
+                      <TagContain>
+                        {question.tags &&
+                          question.tags.map((x, idx) => (
+                            <Tags key={idx}>{x}</Tags>
+                          ))}
+                      </TagContain>
+                      <User>
+                        <span className="user">{question.user.nickName}</span>
+                        <span className="user">
+                          asked{' '}
+                          {Timediff(
+                            new Date(dummyData.data[0].user.created_at)
+                          )}{' '}
+                          ago
+                        </span>
+                      </User>
+                    </TagAndUser>
+                  </RenderRight>
+                </ContentsBox>
+              );
+            })}
+          </MainRender>
+          {/* <MainRender>
             {qData.map((x, questionI) => {
               return (
                 <ContentsBox key={questionI}>
@@ -304,20 +417,18 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
                   </RenderLeft>
                   <RenderRight>
                     <QuestionHeader
-                      onClick={() => navigate(`/AskQuestions/${questionI}`)}
+                      onClick={() =>
+                        navigate(`/AnswerTheQuestions/${questionI}`)
+                      }
                     >
                       {x.title}
                     </QuestionHeader>
                     <QuestionContent>{x.content}</QuestionContent>
-                    {/* <TagContain>
-                      {x.tags &&
-                        x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}
-                    </TagContain> */}
                   </RenderRight>
                 </ContentsBox>
               );
             })}
-          </MainRender>
+          </MainRender> */}
           <BottomContents>
             <PageNation>
               <div className="s-pagination">

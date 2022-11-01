@@ -15,7 +15,7 @@ const AskContain = styled.div`
 //   margin-left: 190px;
 // `;
 
-const AskTheQuestions = () => {
+const AnswerTheQuestions = () => {
   let search = window.location.search;
   const params = new URLSearchParams(search);
   const questionI = params.get('q');
@@ -32,4 +32,4 @@ const AskTheQuestions = () => {
   );
 };
 
-export default AskTheQuestions;
+export default AnswerTheQuestions;
