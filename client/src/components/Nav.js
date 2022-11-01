@@ -3,6 +3,15 @@ import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
 import { useNavigate } from 'react-router-dom';
+import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
+import {
+  userIdSelector,
+  isLoggedInSelector,
+  jwtTokenSelector,
+} from '../redux/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import url from '../url';
 
 const NavContainer = styled.div`
   /* box-sizing: border-box; */
@@ -253,6 +262,22 @@ const SignupBtn = styled.button`
 
 function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   const navigate = useNavigate();
+
+  // 토큰을 로컬스토리지에서 get
+  //window.localStorage.getItem('jwtToken');
+  //로그아웃시 토큰 삭제
+  //window.localStorage.removeItem('jwtToken');
+
+  // 로그인 확인
+  const isLoggedIn = (state) => state.user.isLoggedIn;
+
+  const Token = window.localStorage.getItem('jwtToken');
+
+  const logoutHandler = () => {
+    dispatch(setIsLoggedin(false));
+    localStorage.removeItem(Token);
+    navigate('/');
+  };
 
   return (
     <NavContainer>
