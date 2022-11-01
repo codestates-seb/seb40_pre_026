@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import { BasicButton, MyQuestionButton } from './BasicButton';
 
 const QuestionContain = styled.div`
   padding-top: 60px;
@@ -30,7 +31,7 @@ const RenderSubData = styled.div`
   margin-right: 15px;
 `;
 
-const RenderHomeHead = styled.h1`
+const QuestionTitle = styled.h1`
   font-weight: 400;
 `;
 
@@ -87,9 +88,10 @@ const ContentsLine = styled.div`
   width: 100%;
   border-bottom: 1px solid lightgray;
 `;
-const MainQuestion = styled.div`
-  font-size: 14px;
+const QuestionContent = styled.div`
+  font-size: 16px;
   width: 60%;
+  margin-bottom: 20px;
   word-break: keep-all;
 `;
 const TagContain = styled.div`
@@ -113,7 +115,7 @@ const Tags = styled.button`
   font-size: 13px;
 `;
 
-const MainQuestions = () => {
+const MainQuestions = ({ questionI }) => {
   const [text, setText] = useState('');
   const editorRef = React.createRef();
   const onChange = () => {
@@ -121,11 +123,52 @@ const MainQuestions = () => {
     setText(data);
     console.log(text);
   };
+
+  // 더미 데이터 (삭제 예정)
+  const question = {
+    status: 'OK',
+    data: [
+      {
+        questionI: 1,
+        user: {
+          created_at: '2022-10-27T15:47:39.073703',
+          updated_at: '2022-10-27T15:47:39.073703',
+          userI: 1,
+          nickName: 'dsaf',
+          email: 'chlrh',
+        },
+        title: '제목 : 26하조',
+        content: '내용 들어갈 자리',
+        totalLike: 0,
+        totalViewed: 0,
+        totalAnswers: 0,
+        created_at: '2022-10-27T15:47:43.986145',
+        updated_at: '2022-10-27T15:47:43.986145',
+        tags: ['javascript', 'java', 'spring'],
+      },
+    ],
+  };
+
+  // const header = {
+  //   headers: {
+  //     Authorization:
+  //       'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGxyaEBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY3Mjc4MzgzfQ.fhx2-AbwtG8-twi8JY5FQac_LHvuqxPgEtrQDp_JHg7NUnyyiQjhyvwmTITd2kRmcOT6jiQB56RPtZqIXP5rdw',
+  //   },
+  // };
+
+  // useEffect(() => {
+  //   async () => {
+  //     await axios.get(url + `/question/${questionI}`, header).then((res) => setText(res.data) console.log(res.data))
+  //   };
+  // }, [questionI]);
+
+  //위에는 txt editor 용 복붙파일
+
   return (
     <QuestionContain>
       {' '}
       <RenderHead>
-        <RenderHomeHead>All Questions</RenderHomeHead>
+        <QuestionTitle>{question.data[0].title}</QuestionTitle>
         <SearchBtn> Ask Question</SearchBtn>
       </RenderHead>
       <RenderSubHead>
@@ -137,33 +180,18 @@ const MainQuestions = () => {
         <RenderSubData>2 times</RenderSubData>
       </RenderSubHead>
       <Line />
-      <MainQuestion>
-        {`For a homework assignment, I am required to take a .txt file with
-        1,000,000 integers and condense them into 100 sub-lists of 10,000
-        integers and then sort 50 of those lists with 1 sorting algorithm and
-        send 50 to another. I can't seem to find a way to split a list of lists
-        ex.`}
-        <br />
-        <br />
-        {`[[1, 2, 3] , [4, 7, 9] , [5, 1, 10] , [12, 19, 22]] To [[1, 2, 3] , [4,
-        7, 9]] , [[5, 1, 10] , [12, 19, 22]]`}
-        <br />
-        <br />
-        {`What is the easiest way to split them?`}
-        <br />
-        <br />
-        {`I tried looping through the lists in sub-list and for each list,
-        place it into a temp list until that has filled, then fill the second
-        temp with the remainder. When I ran that, it placed each integer into
-        that temp list and combined all lists into 1 instead of moving 50 lists
-        separately.`}
-      </MainQuestion>
+      <QuestionContent>{question.data[0].content}</QuestionContent>
       <TagContain>
-        <Tags>JS Script</Tags>
+        {console.log(question.data[0].tags)}
+        {question.data[0].tags &&
+          question.data[0].tags.map((tag, idx) => {
+            <Tags key={idx}>{tag}</Tags>;
+          })}
       </TagContain>
-      <RenderHomeHead>0 Answer</RenderHomeHead>
+      <BasicButton />
+      <QuestionTitle>0 Answer</QuestionTitle>
       <ContentsLine />
-      <RenderHomeHead>Your Answer</RenderHomeHead>
+      <QuestionTitle>Your Answer</QuestionTitle>
       <Editor
         initialValue="<strong>Testing</strong>" // 초기 입력값
         previewStyle="vertical" // vertical로 설정시 미리보기 화면 분할가능

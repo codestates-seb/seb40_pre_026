@@ -164,6 +164,12 @@ const QuestionContent = styled.div`
   font-weight: 400;
 `;
 
+const TagAndUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const TagContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -184,52 +190,78 @@ const Tags = styled.button`
   cursor: pointer;
   font-size: 13px;
 `;
+
+const User = styled.div`
+  font-size: 15px;
+  margin-right: 10px;
+  color: gray;
+
+  .user {
+    margin-right: 10px;
+  }
+`;
+
 const RenderPage = ({ modalCloseHandler }) => {
   const navigate = useNavigate();
   //   const [userCount, setUserCount] = useEffect('');
-  const navigate = useNavigate();
-  const dummyData = [
-    {
-      vote: 2,
-      answers: 3,
-      views: 3,
-      id: 'kuu',
-      title: '이게 안되요1',
-      question: '이렇게 했는 데 이게 안되요1',
-      tags: ['tag1', 'tag2', 'tag3'],
-      athor: '김코딩',
-    },
-    {
-      vote: 4,
-      answers: 6,
-      views: 3,
-      id: 'kuu5',
-      title: '이게 안되요2',
-      question: '이렇게 했는 데 이게 안되요2',
-      tags: ['mr', 'back', 'thanks'],
-      athor: '김코딩2',
-    },
-    {
-      vote: 1,
-      answers: 2,
-      views: 10,
-      id: 'kuu6',
-      title: '이게 안되요3',
-      question: '이렇게 했는 데 이게 안되요3',
-      tags: ['t', '24', 'noneSleep'],
-      athor: '김코딩3',
-    },
-    {
-      vote: 2,
-      answers: 3,
-      views: 10,
-      id: 'kuu8',
-      title: '이게 안되요4',
-      question: '이렇게 했는 데 이게 안되요4',
-      tags: ['t', '26', '26hajo'],
-      athor: '김코딩4',
-    },
-  ];
+
+  // 더미 데이터 (삭제 예정)
+  const dummyData = {
+    status: 'OK',
+    data: [
+      {
+        questionI: 1,
+        user: {
+          created_at: '2022-11-01T13:57:50.315993',
+          updated_at: '2022-11-01T13:53:30.315993',
+          userI: 1,
+          nickName: 'dsaf',
+          email: 'chlrh',
+        },
+        title: '제목 : 26하조 ',
+        content: '내용 들어갈 자리',
+        totalLike: 0,
+        totalViewed: 0,
+        totalAnswers: 0,
+        created_at: '2022-10-27T14:48:47.484629',
+        updated_at: '2022-10-27T14:48:47.484629',
+        tags: ['javascript', 'java', 'spring'],
+      },
+      {
+        questionI: 2,
+        user: {
+          created_at: '2022-10-27T14:48:44.315993',
+          updated_at: '2022-10-27T14:48:44.315993',
+          userI: 1,
+          nickName: 'dsaf',
+          email: 'chlrh',
+        },
+        title: '제목 : 26하조 ',
+        content: '내용 들어갈 자리',
+        totalLike: 0,
+        totalViewed: 0,
+        totalAnswers: 0,
+        created_at: '2022-10-27T14:48:48.202426',
+        updated_at: '2022-10-27T14:48:48.202426',
+        tags: ['javascript', 'java', 'spring'],
+      },
+    ],
+  };
+
+  const writtenTime = new Date(dummyData.data[0].user.created_at);
+  const now = new Date();
+  let time = now.getTime() - writtenTime.getTime();
+  let unit = '';
+  if (parseInt(time / 1000) < 60) {
+    time = parseInt(time / 1000);
+    unit = 'secs';
+  } else if (parseInt(time / (1000 * 60)) < 60) {
+    time = parseInt(time / (1000 * 60));
+    unit = 'mins';
+  } else if (parseInt(time / (1000 * 60 * 60)) < 60) {
+    time = parseInt(time / (1000 * 60 * 60));
+    unit = 'hours';
+  }
 
   return (
     <RenderContain onClick={modalCloseHandler}>
@@ -250,25 +282,37 @@ const RenderPage = ({ modalCloseHandler }) => {
         <Line />
         <MainRenderSpace>
           <MainRender>
-            {dummyData.map((x, idx) => {
+            {dummyData.data.map((question, idx) => {
               return (
                 <ContentsBox key={idx}>
                   <RenderLeft>
-                    <Votes>{x.vote} votes</Votes>
-                    <SmallText>{x.answers} answers</SmallText>
-                    <SmallText>{x.views} views</SmallText>
+                    <Votes>{question.totalLike} votes</Votes>
+                    <SmallText>{question.totalAnswers} answers</SmallText>
+                    <SmallText>{question.totalViewed} views</SmallText>
                   </RenderLeft>
                   <RenderRight>
-                    <QuestionHeader onClick={(e) => navigate('/AskQuestions')}>
-                      {x.title}
+                    <QuestionHeader
+                      onClick={(e) =>
+                        navigate(`/AskQuestions?q=${question.questionI}`)
+                      }
+                    >
+                      {question.title}
                     </QuestionHeader>
-                    <QuestionContent onClick={(e) => navigate('/AskQuestions')}>
-                      {x.question}
-                    </QuestionContent>
-                    <TagContain>
-                      {x.tags &&
-                        x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}
-                    </TagContain>
+                    <QuestionContent>{question.content}</QuestionContent>
+                    <TagAndUser>
+                      <TagContain>
+                        {question.tags &&
+                          question.tags.map((x, idx) => (
+                            <Tags key={idx}>{x}</Tags>
+                          ))}
+                      </TagContain>
+                      <User>
+                        <span className="user">{question.user.nickName}</span>
+                        <span className="user">
+                          asked {time} {unit} ago
+                        </span>
+                      </User>
+                    </TagAndUser>
                   </RenderRight>
                 </ContentsBox>
               );

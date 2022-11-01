@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { url } from '../url';
 
 const RenderContain = styled.div`
   padding-top: 72px;
@@ -240,62 +242,33 @@ const BottomContents = styled.div`
 const QuestionRenderPage = ({ modalCloseHandler }) => {
   const navigate = useNavigate();
   //   const [userCount, setUserCount] = useEffect('');
-  const dummyData = [
-    //[1,2,3,4.5] [1에 대한 함수 리턴값,2에 대한 함수 리턴값,3에 대한 함수 리턴값,4에 대한 함수 리턴값]
-    // filter => map=>
-    // return 조건식에 참인것만 리턴을
-    // return x
-    /*
-      map -> 3이상의 수는 *2 , 3이하의 수는 그냥 둔다
-      [1,2,3,4,5].map((x)=>{   // [1,2,3,8,10]
-        if(x>3){
-          return x*2
-        }else{
-          return x
-        }
+
+  console.log(url);
+  const [qData, setQData] = useState([]);
+  const jwtToken = window.localStorage.getItem('jwtToken');
+  const header = {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc2RmQG5hdmVyLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjcyOTAwMDF9.F1TIe9rYhbD-Zb2fF0zqX3Nfuw1qdfvzuNeQkLHoNYTYS1LCd5kp-tMDTSOo7d3b9s4awvwlx9vMyWm-H14Qqg',
+    },
+    'ngrok-skip-browser-warning': 'skip',
+  };
+
+  const getData = () => {
+    axios
+      .get('/api/questions/', header, { withCredentials: true })
+      .then((res) => {
+        setQData([res.data]);
+        console.log('질문 불러오기');
+        console.log(res.data);
       })
-    */
-    {
-      vote: 2,
-      answers: 3,
-      views: 3,
-      id: 'kuu',
-      title: '이게 안되요1',
-      question: '이렇게 했는 데 이게 안되요1',
-      tags: ['tag1', 'tag2', 'tag3'],
-      athor: '김코딩',
-    },
-    {
-      vote: 4,
-      answers: 6,
-      views: 3,
-      id: 'kuu5',
-      title: '이게 안되요2',
-      question: '이렇게 했는 데 이게 안되요2',
-      tags: ['mr', 'back', 'thanks'],
-      athor: '김코딩2',
-    },
-    {
-      vote: 1,
-      answers: 2,
-      views: 10,
-      id: 'kuu6',
-      title: '이게 안되요3',
-      question: '이렇게 했는 데 이게 안되요3',
-      tags: ['t', '24', 'noneSleep'],
-      athor: '김코딩3',
-    },
-    {
-      vote: 2,
-      answers: 3,
-      views: 10,
-      id: 'kuu8',
-      title: '이게 안되요4',
-      question: '이렇게 했는 데 이게 안되요4',
-      tags: ['t', '26', '26hajo'],
-      athor: '김코딩4',
-    },
-  ];
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <RenderContain onClick={modalCloseHandler}>
       <RightSide>
@@ -304,7 +277,7 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
           <SearchBtn onClick={(e) => navigate('/ask')}> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
-          <TotalQuestions>questions length</TotalQuestions>
+          <TotalQuestions>{qData.length}</TotalQuestions>
           <Buttons>
             <LeftOptionBtn>Newest</LeftOptionBtn>
             <OptionBtn>Active</OptionBtn>
@@ -321,25 +294,25 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
         <Line />
         <MainRenderSpace>
           <MainRender>
-            {dummyData.map((x, idx) => {
+            {qData.map((x, questionI) => {
               return (
-                <ContentsBox key={idx}>
+                <ContentsBox key={questionI}>
                   <RenderLeft>
-                    <Votes>{x.vote} votes</Votes>
-                    <SmallText>{x.answers} answers</SmallText>
-                    <SmallText>{x.views} views</SmallText>
+                    <Votes>{x.totalLike} votes</Votes>
+                    <SmallText>{x.totalAnswers} answers</SmallText>
+                    <SmallText>{x.totalViewed} views</SmallText>
                   </RenderLeft>
                   <RenderRight>
-                    <QuestionHeader onClick={(e) => navigate('/AskQuestions')}>
+                    <QuestionHeader
+                      onClick={() => navigate(`/AskQuestions/${questionI}`)}
+                    >
                       {x.title}
                     </QuestionHeader>
-                    <QuestionContent onClick={(e) => navigate('/AskQuestions')}>
-                      {x.question}
-                    </QuestionContent>
-                    <TagContain>
+                    <QuestionContent>{x.content}</QuestionContent>
+                    {/* <TagContain>
                       {x.tags &&
                         x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}
-                    </TagContain>
+                    </TagContain> */}
                   </RenderRight>
                 </ContentsBox>
               );
