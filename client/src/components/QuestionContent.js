@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { userIdSelector } from '../redux/hooks';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -123,6 +125,7 @@ const MainQuestions = ({ questionI }) => {
     setText(data);
     console.log(text);
   };
+  const emailId = useSelector(userIdSelector);
 
   // 더미 데이터 (삭제 예정)
   const question = {
@@ -188,7 +191,11 @@ const MainQuestions = ({ questionI }) => {
             <Tags key={idx}>{tag}</Tags>;
           })}
       </TagContain>
-      <BasicButton />
+      {question.data[0].user.email === emailId ? (
+        <BasicButton />
+      ) : (
+        <MyQuestionButton />
+      )}
       <QuestionTitle>0 Answer</QuestionTitle>
       <ContentsLine />
       <QuestionTitle>Your Answer</QuestionTitle>
