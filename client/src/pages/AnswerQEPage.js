@@ -16,11 +16,17 @@ const AskContain = styled.div`
 // `;
 
 const AskTheQuestions = () => {
+  let search = window.location.search;
+  const params = new URLSearchParams(search);
+  const questionI = params.get('q');
+  console.log('쿼리는' + questionI);
+
   return (
     <AskContain>
       <Nav />
       <Sidebar />
-      {/* <AskMain> */} <MainQuestions /> {/* </AskMain> */}
+      {/* <AskMain> */} <MainQuestions questionI={questionI} />{' '}
+      {/* </AskMain> */}
       <Footer />
     </AskContain>
   );
