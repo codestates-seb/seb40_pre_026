@@ -99,6 +99,7 @@ const QuestionContent = styled.div`
 const TagContain = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 40px;
 `;
 const Tags = styled.button`
   margin: 8px 5px 5px 0px;
@@ -188,7 +189,8 @@ const MainQuestions = ({ questionI }) => {
         {console.log(question.data[0].tags)}
         {question.data[0].tags &&
           question.data[0].tags.map((tag, idx) => {
-            <Tags key={idx}>{tag}</Tags>;
+            console.log('a');
+            return <Tags key={idx}>{tag}</Tags>;
           })}
       </TagContain>
       {question.data[0].user.email === emailId ? (

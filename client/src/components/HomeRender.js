@@ -248,19 +248,18 @@ const RenderPage = ({ modalCloseHandler }) => {
     ],
   };
 
-  const writtenTime = new Date(dummyData.data[0].user.created_at);
-  const now = new Date();
-  let time = now.getTime() - writtenTime.getTime();
-  let unit = '';
-  if (parseInt(time / 1000) < 60) {
-    time = parseInt(time / 1000);
-    unit = 'secs';
-  } else if (parseInt(time / (1000 * 60)) < 60) {
-    time = parseInt(time / (1000 * 60));
-    unit = 'mins';
-  } else if (parseInt(time / (1000 * 60 * 60)) < 60) {
-    time = parseInt(time / (1000 * 60 * 60));
-    unit = 'hours';
+  function Timediff(writtenTime) {
+    // const writtenTime = )new Date(dummyData.data[0].user.created_at;
+    const now = new Date();
+    let time = now.getTime() - writtenTime.getTime();
+    let unit = '';
+    if (parseInt(time / 1000) < 60) {
+      return parseInt(time / 1000) + ' secs';
+    } else if (parseInt(time / (1000 * 60)) < 60) {
+      return parseInt(time / (1000 * 60)) + ' mins';
+    } else if (parseInt(time / (1000 * 60 * 60)) < 60) {
+      return parseInt(time / (1000 * 60 * 60)) + ' hours';
+    }
   }
 
   return (
@@ -293,7 +292,7 @@ const RenderPage = ({ modalCloseHandler }) => {
                   <RenderRight>
                     <QuestionHeader
                       onClick={(e) =>
-                        navigate(`/AskQuestions?q=${question.questionI}`)
+                        navigate(`/AnswerTheQuestions?q=${question.questionI}`)
                       }
                     >
                       {question.title}
@@ -309,7 +308,11 @@ const RenderPage = ({ modalCloseHandler }) => {
                       <User>
                         <span className="user">{question.user.nickName}</span>
                         <span className="user">
-                          asked {time} {unit} ago
+                          asked{' '}
+                          {Timediff(
+                            new Date(dummyData.data[0].user.created_at)
+                          )}{' '}
+                          ago
                         </span>
                       </User>
                     </TagAndUser>

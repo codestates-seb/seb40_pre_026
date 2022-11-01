@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPages from './pages/LoginPage';
 import LogoutPages from './pages/LogoutPage';
 import SignupPages from './pages/SignupPage';
-import AskTheQuestions from './pages/AnswerQEPage';
+import AnswerTheQuestions from './pages/AnswerQEPage';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPages />} />
         <Route path="/logout" element={<LogoutPages />} />
         <Route path="/signup" element={<SignupPages />} />
-        <Route path="/AskQuestions" element={<AskTheQuestions />} />
+        <Route path="/AnswerTheQuestions" element={<AnswerTheQuestions />} />
       </Routes>
     </BrowserRouter>
   );
