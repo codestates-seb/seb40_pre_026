@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { userIdSelector } from '../redux/hooks';
+import { userIdSelector, jwtTokenSelector } from '../redux/hooks';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { BasicButton, MyQuestionButton } from './BasicButton';
+import axios from 'axios';
+import { url } from '../url';
 
 const QuestionContain = styled.div`
   padding-top: 60px;
@@ -87,6 +89,7 @@ const Line = styled.div`
   margin-bottom: 20px;
 `;
 const ContentsLine = styled.div`
+  margin: 20px 0;
   width: 100%;
   border-bottom: 1px solid lightgray;
 `;
@@ -118,88 +121,130 @@ const Tags = styled.button`
   font-size: 13px;
 `;
 
+const AnswerContents = styled.div`
+  font-size: 14px;
+  width: 100%;
+  word-break: keep-all;
+  border-bottom: 1px solid lightgray;
+
+  margin: 15px 0;
+`;
+
+const RenderHomeHead = styled.h1`
+  font-weight: 400;
+`;
+
 const MainQuestions = ({ questionI }) => {
   const [text, setText] = useState('');
+  const [qData, setQData] = useState();
+  const [email, setEmail] = useState('');
   const editorRef = React.createRef();
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML(); // getHTML or getMarkdown
     setText(data);
     console.log(text);
   };
+  const jwtToken = useSelector(jwtTokenSelector);
   const emailId = useSelector(userIdSelector);
 
-  // 더미 데이터 (삭제 예정)
-  const question = {
-    status: 'OK',
-    data: [
-      {
-        questionI: 1,
-        user: {
-          created_at: '2022-10-27T15:47:39.073703',
-          updated_at: '2022-10-27T15:47:39.073703',
-          userI: 1,
-          nickName: 'dsaf',
-          email: 'chlrh',
-        },
-        title: '제목 : 26하조',
-        content: '내용 들어갈 자리',
-        totalLike: 0,
-        totalViewed: 0,
-        totalAnswers: 0,
-        created_at: '2022-10-27T15:47:43.986145',
-        updated_at: '2022-10-27T15:47:43.986145',
-        tags: ['javascript', 'java', 'spring'],
-      },
-    ],
+  const header = {
+    headers: {
+      'ngrok-skip-browser-warning': 'skip',
+    },
   };
 
-  // const header = {
-  //   headers: {
-  //     Authorization:
-  //       'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGxyaEBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY3Mjc4MzgzfQ.fhx2-AbwtG8-twi8JY5FQac_LHvuqxPgEtrQDp_JHg7NUnyyiQjhyvwmTITd2kRmcOT6jiQB56RPtZqIXP5rdw',
-  //   },
-  // };
+  const getQuestion = async () => {
+    await axios
+      .get(url + `/questions/${questionI}`, header)
+      .then((res) => {
+        setQData([res.data.body]);
+        setEmail(res.data.body.question.user.email);
+      })
+      .catch((err) => console.log(err));
+  };
 
-  // useEffect(() => {
-  //   async () => {
-  //     await axios.get(url + `/question/${questionI}`, header).then((res) => setText(res.data) console.log(res.data))
-  //   };
-  // }, [questionI]);
+  useEffect(() => {
+    console.log('useEffect');
+    getQuestion();
+    console.log('질문하나 조회' + qData);
+  }, []);
 
   //위에는 txt editor 용 복붙파일
 
+  //todo - RenderSub contents 들 데이터 값 받아서 render 할 수 있도록 map 돌리기.
+  const submit = async () => {
+    const data = editorRef.current?.getInstance().getHTML(); // getHTML or getMarkdown
+    console.log(data);
+    // console.log(data);
+    if (data === '<p><br></p>') {
+      // <p> <br /> </p>
+      alert('body field required.');
+      return;
+    }
+
+    // if (jwtToken === -1 || emailId === -1) return;
+
+    await axios
+      .post(
+        url + `/questions/${questionI}/answers`,
+        { email: 'qqq@naver.com', content: data },
+        {
+          headers: {
+            Authorization:
+              'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJxcXFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NzQ1MjYyMX0.YgT4yxRN7MLylYteEIbl3QM6S_GVpJoPEXmnJdcRVqP7UF523w7sSfhtxOAHb_P1vU_7QpM7ezrktCsFp5rlmw',
+          },
+        }
+      )
+      .then((_) => alert('Your Answer was successfully submitted!'));
+    getQuestion();
+  };
+
   return (
     <QuestionContain>
-      {' '}
-      <RenderHead>
-        <QuestionTitle>{question.data[0].title}</QuestionTitle>
-        <SearchBtn> Ask Question</SearchBtn>
-      </RenderHead>
-      <RenderSubHead>
-        <RenderSubTxt>Asked</RenderSubTxt>
-        <RenderSubData>Today</RenderSubData>
-        <RenderSubTxt>Modified</RenderSubTxt>
-        <RenderSubData>Today</RenderSubData>
-        <RenderSubTxt>Viewed</RenderSubTxt>
-        <RenderSubData>2 times</RenderSubData>
-      </RenderSubHead>
-      <Line />
-      <QuestionContent>{question.data[0].content}</QuestionContent>
-      <TagContain>
-        {console.log(question.data[0].tags)}
-        {question.data[0].tags &&
-          question.data[0].tags.map((tag, idx) => {
-            console.log('a');
-            return <Tags key={idx}>{tag}</Tags>;
-          })}
-      </TagContain>
-      {question.data[0].user.email === emailId ? (
-        <BasicButton />
-      ) : (
-        <MyQuestionButton />
-      )}
-      <QuestionTitle>0 Answer</QuestionTitle>
+      {qData &&
+        qData.map((x, idx) => {
+          return (
+            <>
+              <RenderHead key={idx}>
+                <QuestionTitle>{x.question.title}</QuestionTitle>
+                <SearchBtn> Ask Question</SearchBtn>
+              </RenderHead>
+              <RenderSubHead>
+                <RenderSubTxt>Asked</RenderSubTxt>
+                <RenderSubData>Today</RenderSubData>
+                <RenderSubTxt>Modified</RenderSubTxt>
+                <RenderSubData>Today</RenderSubData>
+                <RenderSubTxt>Viewed</RenderSubTxt>
+                <RenderSubData>2 times</RenderSubData>
+              </RenderSubHead>
+              <Line />
+              <QuestionContent>{x.question.content}</QuestionContent>
+              <TagContain>
+                {/* {console.log(qData.question.tags)}
+    {qData.question.tags &&
+      qData.question.tags.map((tag, idx) => {
+        console.log('a');
+        return <Tags key={idx}>{tag}</Tags>;
+      })} */}
+              </TagContain>
+              {email !== emailId ? <BasicButton /> : <MyQuestionButton />}
+            </>
+          );
+        })}
       <ContentsLine />
+      {/* <RenderHomeHead>{qData[0].answers.length} Answer</RenderHomeHead> */}
+      {qData &&
+        qData[0].answers.map((x, idx, array) => {
+          return (
+            <>
+              {/* <RenderHomeHead>{array.length} Answer</RenderHomeHead> */}
+              <AnswerContents
+                key={x}
+                dangerouslySetInnerHTML={{ __html: x.content }}
+              ></AnswerContents>
+            </>
+          );
+        })}
       <QuestionTitle>Your Answer</QuestionTitle>
       <Editor
         initialValue="<strong>Testing</strong>" // 초기 입력값
@@ -209,7 +254,7 @@ const MainQuestions = ({ questionI }) => {
         ref={editorRef}
         onChange={onChange}
       />
-      <PostBtn> Post Your Answer</PostBtn>
+      <PostBtn onClick={submit}> Post Your Answer</PostBtn>
     </QuestionContain>
   );
 };
