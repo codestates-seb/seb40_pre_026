@@ -10,7 +10,12 @@ import {
   faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link } from 'react-router-dom';
-import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
+import {
+  setId,
+  setIsLoggedin,
+  setToken,
+  setSearchKeyword,
+} from '../redux/userSlice';
 import {
   userIdSelector,
   isLoggedInSelector,
@@ -311,6 +316,15 @@ function Nav({ ModalItem, dropdownIsOpen }) {
   //   setBarOn(false);
   // };
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchInput, setSearchInput] = useState('');
+
+  const search = () => {
+    if (searchInput === '') return;
+    dispatch(setSearchKeyword(searchInput));
+    window.sessionStorage.setItem('keyword', searchInput);
+    navigate('/search');
+  };
 
   // 토큰을 로컬스토리지에서 get
   //window.localStorage.getItem('jwtToken');
@@ -347,6 +361,8 @@ function Nav({ ModalItem, dropdownIsOpen }) {
             type="text"
             placeholder="Search..."
             onClick={ModalItem}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={(e) => (e.key === 'Enter' ? search() : null)}
           />
           {dropdownIsOpen ? (
             <SearchItemContainer>

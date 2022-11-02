@@ -4,9 +4,9 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { Sidebar } from '../components/Sidebar';
 import { Routes, Route } from 'react-router-dom';
-import QuestionRenderPage from '../components/QuestionsRender';
+import SearchQsRender from '../components/SearchQsRender';
 
-const QuestionsPage = () => {
+const SearchQsPage = () => {
   const [dropdownIsOpen, setOpen] = useState(false);
   const ModalItem = () => {
     setOpen(!dropdownIsOpen);
@@ -22,10 +22,10 @@ const QuestionsPage = () => {
         dropdownIsOpen={dropdownIsOpen}
       />
       <Sidebar />
-      <QuestionRenderPage modalCloseHandler={modalCloseHandler} />
+      <SearchQsRender modalCloseHandler={modalCloseHandler} />
       <Footer />
     </>
   );
 };
 
-export default QuestionsPage;
+export default SearchQsPage;

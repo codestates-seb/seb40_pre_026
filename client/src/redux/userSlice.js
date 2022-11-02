@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { id: -1, isLoggedIn: false, token: -1 };
+const initialState = {
+  id: -1,
+  isLoggedIn: false,
+  token: -1,
+  searchKeyword: -1,
+};
 
 const userSlice = createSlice({
   name: 'user',
@@ -15,13 +20,17 @@ const userSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setSearchKeyword: (state, action) => {
+      state.searchKeyword = action.payload;
+    },
   },
 });
 
 // 1. 페이지 로딩 시 로그인 여부는 토큰으로 확인
 //
 
-export const { setId, setIsLoggedin, setToken } = userSlice.actions;
+export const { setId, setIsLoggedin, setToken, setSearchKeyword } =
+  userSlice.actions;
 export default userSlice.reducer;
 
 // extraReducers: (builder) => {

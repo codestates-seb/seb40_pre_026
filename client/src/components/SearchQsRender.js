@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchKeywordSelector } from '../redux/hooks';
+import { setSearchKeyword } from '../redux/userSlice';
+import url from '../url';
+import axios from 'axios';
 
 const RenderContain = styled.div`
   padding-top: 72px;
@@ -236,8 +241,7 @@ const BottomContents = styled.div`
   justify-content: space-between;
 `;
 
-const QuestionRenderPage = ({ modalCloseHandler }) => {
-  //   const [userCount, setUserCount] = useEffect('');
+const SearchQsRender = ({ modalCloseHandler }) => {
   const dummyData = [
     //[1,2,3,4.5] [1에 대한 함수 리턴값,2에 대한 함수 리턴값,3에 대한 함수 리턴값,4에 대한 함수 리턴값]
     // filter => map=>
@@ -258,8 +262,8 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
       answers: 3,
       views: 3,
       id: 'kuu',
-      title: '이게 안되요1',
-      question: '이렇게 했는 데 이게 안되요1',
+      title: '이게 안돼요',
+      question: '이렇게 했는데 이게 안돼요',
       tags: ['tag1', 'tag2', 'tag3'],
       athor: '김코딩',
     },
@@ -268,8 +272,8 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
       answers: 6,
       views: 3,
       id: 'kuu5',
-      title: '이게 안되요2',
-      question: '이렇게 했는 데 이게 안되요2',
+      title: '이건 안돼요',
+      question: '이렇게 했는데 이게 안돼요',
       tags: ['mr', 'back', 'thanks'],
       athor: '김코딩2',
     },
@@ -278,8 +282,8 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
       answers: 2,
       views: 10,
       id: 'kuu6',
-      title: '이게 안되요3',
-      question: '이렇게 했는 데 이게 안되요3',
+      title: '얘도 안돼요',
+      question: '이렇게 했는데 이게 안돼요',
       tags: ['t', '24', 'noneSleep'],
       athor: '김코딩3',
     },
@@ -288,17 +292,38 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
       answers: 3,
       views: 10,
       id: 'kuu8',
-      title: '이게 안되요4',
-      question: '이렇게 했는 데 이게 안되요4',
+      title: '쟤도 안되는',
+      question: '이렇게 했는데 이게 안돼요',
       tags: ['t', '26', '26hajo'],
       athor: '김코딩4',
     },
   ];
+
+  // const realData = axios.get(url);
+
+  let searchKeyword = useSelector(searchKeywordSelector);
+
+  if (searchKeyword === -1)
+    searchKeyword = window.sessionStorage.getItem('keyword');
+
+  const searchByTags =
+    searchKeyword.includes('[') && searchKeyword.includes(']') ? true : false;
+
+  const filteredData = dummyData.filter((each) =>
+    searchByTags
+      ? each.tags.includes(searchKeyword.slice(1, searchKeyword.length - 1))
+      : each.title.includes(searchKeyword) ||
+        each.question.includes(searchKeyword)
+  );
+
   return (
     <RenderContain onClick={modalCloseHandler}>
       <RightSide>
         <RenderHead>
-          <RenderHomeHead>All Questions</RenderHomeHead>
+          <RenderHomeHead>
+            Search Keyword:{' '}
+            {searchKeyword + searchKeyword.slice(1, searchKeyword.length - 1)}
+          </RenderHomeHead>
           <SearchBtn> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
@@ -319,7 +344,7 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
         <Line />
         <MainRenderSpace>
           <MainRender>
-            {dummyData.map((x, idx) => {
+            {filteredData.map((x, idx) => {
               return (
                 <ContentsBox key={idx}>
                   <RenderLeft>
@@ -363,4 +388,4 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
   );
 };
 
-export default QuestionRenderPage;
+export default SearchQsRender;
