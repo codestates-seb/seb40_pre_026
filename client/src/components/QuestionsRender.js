@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { url } from '../url';
+
 const RenderContain = styled.div`
   padding-top: 72px;
   display: flex;
@@ -210,9 +213,23 @@ const QuestionContent = styled.div`
   font-weight: 400;
 `;
 
+const TagAndUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 const TagContain = styled.div`
   display: flex;
   flex-direction: row;
+`;
+const User = styled.div`
+  font-size: 15px;
+  margin-right: 10px;
+  color: gray;
+
+  .user {
+    margin-right: 10px;
+  }
 `;
 const Tags = styled.button`
   margin: 8px 5px 5px 0px;
@@ -238,64 +255,45 @@ const BottomContents = styled.div`
 
 const QuestionRenderPage = ({ modalCloseHandler }) => {
   const navigate = useNavigate();
-  // const btnhandler = (onclick = (event) => {});
   //   const [userCount, setUserCount] = useEffect('');
-  const dummyData = [
-    //[1,2,3,4.5] [1에 대한 함수 리턴값,2에 대한 함수 리턴값,3에 대한 함수 리턴값,4에 대한 함수 리턴값]
-    // filter => map=>
-    // return 조건식에 참인것만 리턴을
-    // return x
-    /*
-      map -> 3이상의 수는 *2 , 3이하의 수는 그냥 둔다
-      [1,2,3,4,5].map((x)=>{   // [1,2,3,8,10]
-        if(x>3){
-          return x*2
-        }else{
-          return x
-        }
+
+  console.log(url);
+  const [qData, setQData] = useState([]);
+
+  function Timediff(writtenTime) {
+    const now = new Date();
+    let time = now.getTime() - writtenTime.getTime();
+    let unit = '';
+    if (parseInt(time / 1000) < 60) {
+      return parseInt(time / 1000) + ' secs';
+    } else if (parseInt(time / (1000 * 60)) < 60) {
+      return parseInt(time / (1000 * 60)) + ' mins';
+    } else if (parseInt(time / (1000 * 60 * 60)) < 60) {
+      return parseInt(time / (1000 * 60 * 60)) + ' hours';
+    }
+  }
+
+  const header = {
+    headers: {
+      'ngrok-skip-browser-warning': 'skip',
+    },
+  };
+
+  const getData = async () => {
+    await axios
+      .get(url + '/questions', header)
+      .then((res) => {
+        setQData(res.data.body);
+        // console.log('데이터' + qData);
       })
-    */
-    {
-      vote: 2,
-      answers: 3,
-      views: 3,
-      id: 'kuu',
-      title: '이게 안되요1',
-      question: '이렇게 했는 데 이게 안되요1',
-      tags: ['tag1', 'tag2', 'tag3'],
-      athor: '김코딩',
-    },
-    {
-      vote: 4,
-      answers: 6,
-      views: 3,
-      id: 'kuu5',
-      title: '이게 안되요2',
-      question: '이렇게 했는 데 이게 안되요2',
-      tags: ['mr', 'back', 'thanks'],
-      athor: '김코딩2',
-    },
-    {
-      vote: 1,
-      answers: 2,
-      views: 10,
-      id: 'kuu6',
-      title: '이게 안되요3',
-      question: '이렇게 했는 데 이게 안되요3',
-      tags: ['t', '24', 'noneSleep'],
-      athor: '김코딩3',
-    },
-    {
-      vote: 2,
-      answers: 3,
-      views: 10,
-      id: 'kuu8',
-      title: '이게 안되요4',
-      question: '이렇게 했는 데 이게 안되요4',
-      tags: ['t', '26', '26hajo'],
-      athor: '김코딩4',
-    },
-  ];
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getData();
+    console.log('모든질문 조회');
+  }, []);
+
   return (
     <RenderContain onClick={modalCloseHandler}>
       <RightSide>
@@ -304,7 +302,7 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
           <SearchBtn onClick={(e) => navigate('/ask')}> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
-          <TotalQuestions>questions length</TotalQuestions>
+          <TotalQuestions>{qData.length}</TotalQuestions>
           <Buttons>
             <LeftOptionBtn>Newest</LeftOptionBtn>
             <OptionBtn>Active</OptionBtn>
@@ -321,25 +319,44 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
         <Line />
         <MainRenderSpace>
           <MainRender>
-            {dummyData.map((x, idx) => {
-              return (
-                <ContentsBox key={idx}>
-                  <RenderLeft>
-                    <Votes>{x.vote} votes</Votes>
-                    <SmallText>{x.answers} answers</SmallText>
-                    <SmallText>{x.views} views</SmallText>
-                  </RenderLeft>
-                  <RenderRight>
-                    <QuestionHeader>{x.title}</QuestionHeader>
-                    <QuestionContent>{x.question}</QuestionContent>
-                    <TagContain>
-                      {x.tags &&
-                        x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}
-                    </TagContain>
-                  </RenderRight>
-                </ContentsBox>
-              );
-            })}
+            {qData &&
+              qData.map((question, idx) => {
+                return (
+                  <ContentsBox key={idx}>
+                    <RenderLeft>
+                      <Votes>{question.totalLike} votes</Votes>
+                      <SmallText>{question.totalAnswers} answers</SmallText>
+                      <SmallText>{question.totalViewed} views</SmallText>
+                    </RenderLeft>
+                    <RenderRight>
+                      <QuestionHeader
+                        onClick={(e) =>
+                          navigate(
+                            `/AnswerTheQuestions?q=${question.questionI}`
+                          )
+                        }
+                      >
+                        {question.title}
+                      </QuestionHeader>
+                      <QuestionContent>{question.content}</QuestionContent>
+                      <TagAndUser>
+                        <TagContain>
+                          {question.tags &&
+                            question.tags.map((x, idx) => (
+                              <Tags key={idx}>{x}</Tags>
+                            ))}
+                        </TagContain>
+                        <User>
+                          <span className="user">{question.user.nickName}</span>
+                          <span className="user">
+                            asked {Timediff(new Date(question.created_at))} ago
+                          </span>
+                        </User>
+                      </TagAndUser>
+                    </RenderRight>
+                  </ContentsBox>
+                );
+              })}
           </MainRender>
           <BottomContents>
             <PageNation>

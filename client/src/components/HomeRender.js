@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { url } from '../url';
 
 const RenderContain = styled.div`
   display: flex;
@@ -164,6 +166,12 @@ const QuestionContent = styled.div`
   font-weight: 400;
 `;
 
+const TagAndUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const TagContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -184,51 +192,54 @@ const Tags = styled.button`
   cursor: pointer;
   font-size: 13px;
 `;
+
+const User = styled.div`
+  font-size: 15px;
+  margin-right: 10px;
+  color: gray;
+
+  .user {
+    margin-right: 10px;
+  }
+`;
+
 const RenderPage = ({ modalCloseHandler }) => {
-  //   const [userCount, setUserCount] = useEffect('');
   const navigate = useNavigate();
-  const dummyData = [
-    {
-      vote: 2,
-      answers: 3,
-      views: 3,
-      id: 'kuu',
-      title: '이게 안되요1',
-      question: '이렇게 했는 데 이게 안되요1',
-      tags: ['tag1', 'tag2', 'tag3'],
-      athor: '김코딩',
+  const [qData, setQData] = useState([]);
+
+  function Timediff(writtenTime) {
+    const now = new Date();
+    let time = now.getTime() - writtenTime.getTime();
+    let unit = '';
+    if (parseInt(time / 1000) < 60) {
+      return parseInt(time / 1000) + ' secs';
+    } else if (parseInt(time / (1000 * 60)) < 60) {
+      return parseInt(time / (1000 * 60)) + ' mins';
+    } else if (parseInt(time / (1000 * 60 * 60)) < 60) {
+      return parseInt(time / (1000 * 60 * 60)) + ' hours';
+    }
+  }
+
+  const header = {
+    headers: {
+      'ngrok-skip-browser-warning': 'skip',
     },
-    {
-      vote: 4,
-      answers: 6,
-      views: 3,
-      id: 'kuu5',
-      title: '이게 안되요2',
-      question: '이렇게 했는 데 이게 안되요2',
-      tags: ['mr', 'back', 'thanks'],
-      athor: '김코딩2',
-    },
-    {
-      vote: 1,
-      answers: 2,
-      views: 10,
-      id: 'kuu6',
-      title: '이게 안되요3',
-      question: '이렇게 했는 데 이게 안되요3',
-      tags: ['t', '24', 'noneSleep'],
-      athor: '김코딩3',
-    },
-    {
-      vote: 2,
-      answers: 3,
-      views: 10,
-      id: 'kuu8',
-      title: '이게 안되요4',
-      question: '이렇게 했는 데 이게 안되요4',
-      tags: ['t', '26', '26hajo'],
-      athor: '김코딩4',
-    },
-  ];
+  };
+
+  const getData = async () => {
+    await axios
+      .get(url + '/questions', header)
+      .then((res) => {
+        setQData(res.data.body);
+        // console.log('데이터' + qData);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getData();
+    console.log('모든질문 조회');
+  }, []);
 
   return (
     <RenderContain onClick={modalCloseHandler}>
@@ -249,21 +260,37 @@ const RenderPage = ({ modalCloseHandler }) => {
         <Line />
         <MainRenderSpace>
           <MainRender>
-            {dummyData.map((x, idx) => {
+            {qData.map((question, idx) => {
               return (
                 <ContentsBox key={idx}>
                   <RenderLeft>
-                    <Votes>{x.vote} votes</Votes>
-                    <SmallText>{x.answers} answers</SmallText>
-                    <SmallText>{x.views} views</SmallText>
+                    <Votes>{question.totalLike} votes</Votes>
+                    <SmallText>{question.totalAnswers} answers</SmallText>
+                    <SmallText>{question.totalViewed} views</SmallText>
                   </RenderLeft>
                   <RenderRight>
-                    <QuestionHeader>{x.title}</QuestionHeader>
-                    <QuestionContent>{x.question}</QuestionContent>
-                    <TagContain>
-                      {x.tags &&
-                        x.tags.map((x, idx) => <Tags key={idx}>{x}</Tags>)}
-                    </TagContain>
+                    <QuestionHeader
+                      onClick={(e) =>
+                        navigate(`/AnswerTheQuestions?q=${question.questionI}`)
+                      }
+                    >
+                      {question.title}
+                    </QuestionHeader>
+                    <QuestionContent>{question.content}</QuestionContent>
+                    <TagAndUser>
+                      <TagContain>
+                        {question.tags &&
+                          question.tags.map((x, idx) => (
+                            <Tags key={idx}>{x}</Tags>
+                          ))}
+                      </TagContain>
+                      <User>
+                        <span className="user">{question.user.nickName}</span>
+                        <span className="user">
+                          asked {Timediff(new Date(question.created_at))} ago
+                        </span>
+                      </User>
+                    </TagAndUser>
                   </RenderRight>
                 </ContentsBox>
               );
