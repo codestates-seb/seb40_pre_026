@@ -319,15 +319,6 @@ function Nav({ ModalItem, dropdownIsOpen }) {
 
   // 로그인 확인
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  // const jwtTokenSelector = (state) => state.user.token;
-
-  const Token = window.localStorage.getItem('jwtToken');
-
-  const logoutHandler = () => {
-    dispatch(setToken(-1));
-    localStorage.removeItem(Token);
-    navigate('/');
-  };
 
   return (
     <NavContainer>
