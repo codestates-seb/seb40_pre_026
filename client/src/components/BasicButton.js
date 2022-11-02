@@ -12,7 +12,7 @@ const ButtonContain = styled.div`
 export const BasicButton = () => {
   return (
     <ButtonContain>
-      <button>Share</button>
+      {/* <button>Share</button> */}
       <button>Edit</button>
       <button>Follow</button>
     </ButtonContain>
@@ -22,7 +22,7 @@ export const BasicButton = () => {
 export const MyQuestionButton = () => {
   return (
     <ButtonContain>
-      <button>Share</button>
+      {/* <button>Share</button> */}
       <button>Edit</button>
       <button>Delete</button>
     </ButtonContain>

@@ -6,6 +6,7 @@ import { setId, setIsLoggedin } from '../redux/userSlice';
 import { userIdSelector, isLoggedInSelector } from '../redux/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { url } from '../url';
 
 const Container = styled.div`
   display: flex;
@@ -162,7 +163,7 @@ const Login = () => {
     console.log(loginInfo);
 
     return axios
-      .post('https://7b6e-218-158-78-87.jp.ngrok.io/users/login', loginInfo)
+      .post(url + '/users/login', loginInfo)
       .then((res) => {
         //res로 받아온 user정보와 jwt토큰을 redux와 로컬스토리지로 처리
         window.localStorage.setItem('email', res.data.body.email);

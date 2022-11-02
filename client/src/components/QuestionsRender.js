@@ -259,53 +259,8 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
 
   console.log(url);
   const [qData, setQData] = useState([]);
-  const jwtToken = window.localStorage.getItem('jwtToken');
-
-  // 더미 데이터 (삭제 예정)
-  // const dummyData = {
-  //   status: 'OK',
-  //   data: [
-  //     {
-  //       questionI: 1,
-  //       user: {
-  //         created_at: '2022-11-01T13:57:50.315993',
-  //         updated_at: '2022-11-01T13:53:30.315993',
-  //         userI: 1,
-  //         nickName: 'dsaf',
-  //         email: 'chlrh',
-  //       },
-  //       title: '제목 : 26하조 안녕',
-  //       content: '내용 들어갈 자리',
-  //       totalLike: 0,
-  //       totalViewed: 0,
-  //       totalAnswers: 0,
-  //       created_at: '2022-10-27T14:48:47.484629',
-  //       updated_at: '2022-10-27T14:48:47.484629',
-  //       tags: ['javascript', 'java', 'spring'],
-  //     },
-  //     {
-  //       questionI: 2,
-  //       user: {
-  //         created_at: '2022-10-27T14:48:44.315993',
-  //         updated_at: '2022-10-27T14:48:44.315993',
-  //         userI: 1,
-  //         nickName: 'dsaf',
-  //         email: 'chlrh',
-  //       },
-  //       title: '제목 : 26하조 ',
-  //       content: '내용 들어갈 자리',
-  //       totalLike: 0,
-  //       totalViewed: 0,
-  //       totalAnswers: 0,
-  //       created_at: '2022-10-27T14:48:48.202426',
-  //       updated_at: '2022-10-27T14:48:48.202426',
-  //       tags: ['javascript', 'java', 'spring'],
-  //     },
-  //   ],
-  // };
 
   function Timediff(writtenTime) {
-    // const writtenTime = )new Date(dummyData.data[0].user.created_at;
     const now = new Date();
     let time = now.getTime() - writtenTime.getTime();
     let unit = '';
@@ -324,11 +279,9 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
     },
   };
 
-  // { withCredentials: true }
-
   const getData = async () => {
     await axios
-      .get('https://d14c-218-158-78-87.jp.ngrok.io/questions', header)
+      .get(url + '/questions', header)
       .then((res) => {
         setQData(res.data.body);
         // console.log('데이터' + qData);

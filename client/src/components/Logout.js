@@ -5,6 +5,7 @@ import { setId, setIsLoggedin, deleteId } from '../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { url } from '../url';
 
 const Container = styled.div`
   display: flex;
@@ -100,7 +101,7 @@ const Logout = () => {
 
     return axios
       .post(
-        'https://7b6e-218-158-78-87.jp.ngrok.io/users/logout',
+        url + '/users/logout',
         { email: email },
         {
           headers: {
