@@ -7,8 +7,9 @@ import {
   faUser,
   faInbox,
   faCircleQuestion,
+  faBars,
 } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
 import {
   userIdSelector,
@@ -267,13 +268,48 @@ const SignupBtn = styled.button`
 `;
 
 const IconContain = styled.div`
-  margin: 5px;
+  margin: 7px;
   .icon {
-    margin: 10px;
+    margin: 10px 10px 5px 10px;
+    padding: 0px 0px 10px 0px;
+    &:hover {
+      background-color: hsl(210, 8%, 90%);
+    }
+    cursor: pointer;
   }
 `;
 
-function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
+const BarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 60px;
+  padding: 0px;
+  width: 700px;
+  height: 250px;
+  background-color: gray;
+`;
+
+const BarModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 200px 50px 50px 50px;
+  padding: 0px;
+  width: 70px;
+  height: 130px;
+  background-color: white;
+  border: solid 1px red;
+`;
+
+function Nav({ ModalItem, dropdownIsOpen }) {
+  const [BarOn, setBarOn] = useState(false);
+  const BarHandler = () => {
+    setBarOn(!BarOn);
+  };
+  // const closeModal = () => {
+  //   setBarOn(false);
+  // };
   const navigate = useNavigate();
 
   // 토큰을 로컬스토리지에서 get
@@ -282,15 +318,16 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   //window.localStorage.removeItem('jwtToken');
 
   // 로그인 확인
-  const isLoggedIn = (state) => state.user.isLoggedIn;
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  // const jwtTokenSelector = (state) => state.user.token;
 
   const Token = window.localStorage.getItem('jwtToken');
 
-  // const logoutHandler = () => {
-  //   dispatch(setIsLoggedin(false));
-  //   localStorage.removeItem(Token);
-  //   navigate('/');
-  // };
+  const logoutHandler = () => {
+    dispatch(setToken(-1));
+    localStorage.removeItem(Token);
+    navigate('/');
+  };
 
   return (
     <NavContainer>
@@ -367,7 +404,9 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
                 >
                   ask a question
                 </button>
+                {/* <Link to="stackoverflow.com/help/searching"> */}
                 <span className="help">Search help</span>
+                {/* </Link> */}
               </SearchItem_bottom>
             </SearchItemContainer>
           ) : null}
@@ -387,7 +426,21 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
                 className="icon"
                 size="lg"
               />
+              <FontAwesomeIcon
+                icon={faBars}
+                className="icon"
+                size="lg"
+                onClick={BarHandler}
+              />
+              {/* <BarContainer>
+                <BarModal>
+                  <li>
+                    <ul>dd</ul>
+                  </li>
+                </BarModal>
+              </BarContainer> */}
             </IconContain>
+
             <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn>
           </>
         )}
@@ -396,3 +449,7 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
   );
 }
 export default Nav;
+
+{
+  /* <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn> */
+}
