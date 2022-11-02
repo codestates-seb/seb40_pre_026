@@ -14,6 +14,7 @@ const QuestionsPage = () => {
   const modalCloseHandler = () => {
     setOpen(false);
   };
+
   return (
     <>
       <Nav
