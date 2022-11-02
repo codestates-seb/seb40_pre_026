@@ -58,7 +58,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://f8ad-210-123-87-140.jp.ngrok.io",
   "devDependencies": {
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
