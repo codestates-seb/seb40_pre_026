@@ -2,7 +2,23 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import MagnifyingGlass from '../image/magnifyingGlass.png';
-import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faUser,
+  faInbox,
+  faCircleQuestion,
+  faBars,
+} from '@fortawesome/free-solid-svg-icons';
+import { useNavigate, Link } from 'react-router-dom';
+import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
+import {
+  userIdSelector,
+  isLoggedInSelector,
+  jwtTokenSelector,
+} from '../redux/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import url from '../url';
 
 const NavContainer = styled.div`
   /* box-sizing: border-box; */
@@ -218,7 +234,7 @@ const LoginBtn = styled.button`
 const LogoutBtn = styled.button`
   margin: 4px 4px 4px 10px;
   padding: 5px;
-  width: 59px;
+  width: 70px;
   height: 33px;
   background-color: #e1ecf4;
   color: #39739d;
@@ -251,22 +267,88 @@ const SignupBtn = styled.button`
   }
 `;
 
-function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
+const IconContain = styled.div`
+  margin: 7px;
+  .icon {
+    margin: 10px 10px 5px 10px;
+    padding: 0px 0px 10px 0px;
+    &:hover {
+      background-color: hsl(210, 8%, 90%);
+    }
+    cursor: pointer;
+  }
+`;
+
+const BarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 60px;
+  padding: 0px;
+  width: 700px;
+  height: 250px;
+  background-color: gray;
+`;
+
+const BarModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 200px 50px 50px 50px;
+  padding: 0px;
+  width: 70px;
+  height: 130px;
+  background-color: white;
+  border: solid 1px red;
+`;
+
+function Nav({ ModalItem, dropdownIsOpen }) {
+  const [BarOn, setBarOn] = useState(false);
+  const BarHandler = () => {
+    setBarOn(!BarOn);
+  };
+  // const closeModal = () => {
+  //   setBarOn(false);
+  // };
   const navigate = useNavigate();
+
+  // 토큰을 로컬스토리지에서 get
+  //window.localStorage.getItem('jwtToken');
+  //로그아웃시 토큰 삭제
+  //window.localStorage.removeItem('jwtToken');
+
+  // 로그인 확인
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  // const jwtTokenSelector = (state) => state.user.token;
+
+  const Token = window.localStorage.getItem('jwtToken');
+
+  const logoutHandler = () => {
+    dispatch(setToken(-1));
+    localStorage.removeItem(Token);
+    navigate('/');
+  };
 
   return (
     <NavContainer>
       <NavBoxCotain>
-        <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn>
         <FlowLogo
           src={stackoverflow_logo}
           alt="logo"
           onClick={(e) => navigate('/')}
         />
         <BtnContainer>
-          <AboutBtn>About</AboutBtn>
+          {!isLoggedIn && (
+            <>
+              <AboutBtn>About</AboutBtn>
+            </>
+          )}
           <ProductsBtn>Products</ProductsBtn>
-          <ForTeamsBtn>For Teams</ForTeamsBtn>
+          {!isLoggedIn && (
+            <>
+              <ForTeamsBtn>For Teams</ForTeamsBtn>
+            </>
+          )}
         </BtnContainer>
         <SearchContainer>
           <img src={MagnifyingGlass} alt="searchicon" />
@@ -322,15 +404,52 @@ function Nav({ ModalItem, modalCloseHandler, dropdownIsOpen }) {
                 >
                   ask a question
                 </button>
+                {/* <Link to="stackoverflow.com/help/searching"> */}
                 <span className="help">Search help</span>
+                {/* </Link> */}
               </SearchItem_bottom>
             </SearchItemContainer>
           ) : null}
         </SearchContainer>
-        <LoginBtn onClick={(e) => navigate('/login')}>Log in</LoginBtn>
-        <SignupBtn onClick={(e) => navigate('/signup')}>Sign up</SignupBtn>
+        {!isLoggedIn ? (
+          <>
+            <LoginBtn onClick={(e) => navigate('/login')}>Log in</LoginBtn>
+            <SignupBtn onClick={(e) => navigate('/signup')}>Sign up</SignupBtn>
+          </>
+        ) : (
+          <>
+            <IconContain>
+              <FontAwesomeIcon icon={faUser} className="icon" size="lg" />
+              <FontAwesomeIcon icon={faInbox} className="icon" size="lg" />
+              <FontAwesomeIcon
+                icon={faCircleQuestion}
+                className="icon"
+                size="lg"
+              />
+              <FontAwesomeIcon
+                icon={faBars}
+                className="icon"
+                size="lg"
+                onClick={BarHandler}
+              />
+              {/* <BarContainer>
+                <BarModal>
+                  <li>
+                    <ul>dd</ul>
+                  </li>
+                </BarModal>
+              </BarContainer> */}
+            </IconContain>
+
+            <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn>
+          </>
+        )}
       </NavBoxCotain>
     </NavContainer>
   );
 }
 export default Nav;
+
+{
+  /* <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn> */
+}
