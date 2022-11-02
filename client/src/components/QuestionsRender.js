@@ -366,3 +366,4 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
 };
 
 export default QuestionRenderPage;
+export { Buttons, LeftOptionBtn, OptionBtn, SmallButtons, RightOptionBtn };
