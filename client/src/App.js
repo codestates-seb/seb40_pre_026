@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainPage from './pages/MainPage';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPages from './pages/TagsPage';
@@ -9,7 +9,6 @@ import SignupPages from './pages/SignupPage';
 import AskPage from './pages/AskPage';
 import SearchQsPage from './pages/SearchQsPage';
 import EditPage from './pages/EditPage';
-import { useEffect, useState } from 'react';
 import { setId, setIsLoggedin, setToken } from './redux/userSlice';
 import { useDispatch } from 'react-redux';
 import AnswerTheQuestions from './pages/AnswerQEPage';
