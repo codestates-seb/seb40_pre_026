@@ -227,7 +227,7 @@ const Ask = () => {
   const [tagList, setTagList] = useState([]);
   const editorRef = useRef();
   const [modalOn, setModalOn] = useState(true);
-
+  const navigate = useNavigate();
   const closeModal = () => {
     setModalOn(false);
   };
@@ -252,7 +252,10 @@ const Ask = () => {
           },
         }
       )
-      .then((_) => alert('Your question was successfully submitted!'));
+      .then((_) => {
+        alert('Your question was successfully submitted!');
+        navigate(`/questions/${questionI}`);
+      });
   };
 
   // tagsInput에 태그 입력 후 쉼표 입력
@@ -263,7 +266,7 @@ const Ask = () => {
     <AskContainer>
       <Head>
         Ask a public question
-        <FlowLogo src={stackoverflow_logo} alt="logo"></FlowLogo>
+        {/* <FlowLogo src={stackoverflow_logo} alt="logo"></FlowLogo> */}
       </Head>
 
       <TextContainer>

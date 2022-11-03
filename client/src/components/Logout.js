@@ -123,6 +123,7 @@ const Logout = () => {
         window.localStorage.removeItem('email');
         dispatch(setId(-1));
         dispatch(setIsLoggedin(false));
+        navigate('/');
         //TODO: redux, 로컬스토리지로 로그인 정보 초기화, 토큰 삭제
         //이후 메인 화면으로 리다이렉트
       })

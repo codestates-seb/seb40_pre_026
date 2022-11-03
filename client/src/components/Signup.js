@@ -4,6 +4,7 @@ import icon from '../image/github.png';
 import useInput from './useInput';
 import axios from 'axios';
 import { url } from '../url';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpContain = styled.div`
   /* margin-top: 100px; */
@@ -71,7 +72,7 @@ const Icon = styled.img`
   width: 18px;
   height: 18px;
 `;
-const SignUpBox = styled.div`
+const SignUpBox = styled.form`
   display: flex;
   flex-direction: column;
   border-radius: 7px;
@@ -155,20 +156,19 @@ const Signup = () => {
   const [nicknameValue, nicknameBind, nicknameReset] = useInput('');
   const [emailValue, emailBind, emailReset] = useInput('');
   const [passwordValue, passwordBind, passwordReset] = useInput('');
+  const navigate = useNavigate();
 
   const handleSumbit = () => {
     let emailRule =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
-    if (emailRule.test(emailValue) === false) {
-      alert(`${emailValue} is not a valid email address.`);
-      return;
-    }
-
     let passwordRule = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{8,}$/;
 
-    if (passwordRule.test(passwordValue) === false) {
-      alert(`Password should contain one or more of letters and numbers`);
+    if (
+      passwordRule.test(passwordValue) === false ||
+      emailRule.test(emailValue) === false
+    ) {
+      alert(`Please check your email and password`);
       return;
     }
 
@@ -186,6 +186,10 @@ const Signup = () => {
         nicknameReset();
         emailReset();
         passwordReset();
+      })
+      .then((_) => {
+        alert('Sign up is complete!');
+        navigate('/login');
       })
       .catch((err) => console.log(err));
   };
@@ -213,7 +217,7 @@ const Signup = () => {
           <Icon src={icon} alt="github.png" />
           Log in with Github
         </GitHubLogin>
-        <SignUpBox>
+        <SignUpBox onSubmit={(e) => e.preventDefault()}>
           <DN>
             <SignUpHead htmlFor="DisplayName">Display name</SignUpHead>
             <Input id="DisplayName" type="text" {...nicknameBind} />
@@ -233,14 +237,23 @@ const Signup = () => {
             Passwords must contain at least eight <br /> characters, including
             at least 1 letter and 1 <br /> number.
           </InputInfo>
-          <UsualLogin onClick={() => handleSumbit()}>Sign up</UsualLogin>
+          <UsualLogin type="submit" onClick={handleSumbit}>
+            Sign up
+          </UsualLogin>
           <InputInfo>
             By clicking “Sign up”, you agree to our terms of <br /> service,
             privacy policy and cookie policy
           </InputInfo>
         </SignUpBox>
         <P>
-          Already have an account? <A href="url">Log in</A>
+          Already have an account?{' '}
+          <A
+            onClick={() => {
+              navigate('/login');
+            }}
+          >
+            Log in
+          </A>
         </P>
       </RightContain>
     </SignUpContain>

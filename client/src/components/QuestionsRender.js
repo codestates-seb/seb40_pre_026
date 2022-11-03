@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../url';
+import { userIdSelector } from '../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const RenderContain = styled.div`
   padding-top: 72px;
@@ -254,6 +256,7 @@ const BottomContents = styled.div`
 `;
 
 const QuestionRenderPage = ({ modalCloseHandler }) => {
+  const email = useSelector(userIdSelector);
   const navigate = useNavigate();
   //   const [userCount, setUserCount] = useEffect('');
 
@@ -294,12 +297,21 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
     console.log('모든질문 조회');
   }, []);
 
+  const NavigateAsk = () => {
+    if (email < 0) {
+      alert('로그인 후 이용해주세요.');
+    } else {
+      navigate('/ask');
+    }
+    console.log(email);
+  };
+
   return (
     <RenderContain onClick={modalCloseHandler}>
       <RightSide>
         <RenderHead>
           <RenderHomeHead>All Questions</RenderHomeHead>
-          <SearchBtn onClick={(e) => navigate('/ask')}> Ask Question</SearchBtn>
+          <SearchBtn onClick={NavigateAsk}> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
           <TotalQuestions>{qData.length}</TotalQuestions>
