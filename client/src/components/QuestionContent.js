@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { userIdSelector, jwtTokenSelector } from '../redux/hooks';
-import { setTitle, setContent, setTags } from '../redux/userSlice';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -55,7 +54,6 @@ const SearchBtn = styled.button`
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
   /* user-select: none; */
-
   &:hover {
     background-color: hsl(205, 47%, 42%);
     font-size: 13px;
@@ -76,7 +74,6 @@ const PostBtn = styled.button`
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
   /* user-select: none; */
-
   &:hover {
     background-color: hsl(205, 47%, 42%);
     font-size: 13px;
@@ -114,7 +111,6 @@ const Tags = styled.button`
   color: black;
   font-size: 13px;
   border: none;
-
   &:hover {
     background-color: #d0e2f0;
   }
@@ -127,7 +123,6 @@ const AnswerContents = styled.div`
   width: 100%;
   word-break: keep-all;
   border-bottom: 1px solid lightgray;
-
   margin: 15px 0;
 `;
 
@@ -136,18 +131,18 @@ const RenderHomeHead = styled.h1`
 `;
 
 const MainQuestions = ({ questionI }) => {
-  const dispatch = useDispatch();
   const [text, setText] = useState('');
   const [qData, setQData] = useState();
   const [email, setEmail] = useState('');
   const editorRef = React.createRef();
+  const jwtToken = useSelector(jwtTokenSelector);
+  const emailId = useSelector(userIdSelector);
+
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML(); // getHTML or getMarkdown
     setText(data);
     console.log(text);
   };
-  const jwtToken = useSelector(jwtTokenSelector);
-  const emailId = useSelector(userIdSelector);
 
   const header = {
     headers: {
@@ -161,10 +156,6 @@ const MainQuestions = ({ questionI }) => {
       .then((res) => {
         setQData([res.data.body]);
         setEmail(res.data.body.question.user.email);
-        // dispatch(setId(res.data.body.email));
-        dispatch(setTitle(res.data.body.question.title));
-        dispatch(setContent(res.data.body.question.content));
-        dispatch(setTags(res.data.body.tags));
       })
       .catch((err) => console.log(err));
   };
@@ -230,16 +221,21 @@ const MainQuestions = ({ questionI }) => {
                 dangerouslySetInnerHTML={{ __html: x.question.content }}
               ></QuestionContent>
               <TagContain>
-                {console.log(x.question.tags)}
-                {x.tags &&
-                  x.tags.map((tag, idx) => {
-                    return <Tags key={tag}>{tag}</Tags>;
-                  })}
+                {/* {console.log(qData.question.tags)}
+    {qData.question.tags &&
+      qData.question.tags.map((tag, idx) => {
+        console.log('a');
+        return <Tags key={idx}>{tag}</Tags>;
+      })} */}
               </TagContain>
               {email !== emailId ? (
-                <BasicButton questionI={questionI} />
+                <BasicButton />
               ) : (
-                <MyQuestionButton questionI={questionI} />
+                <MyQuestionButton
+                  questionI={questionI}
+                  email={email}
+                  jwtToken={jwtToken}
+                />
               )}
             </>
           );
