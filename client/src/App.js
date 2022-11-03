@@ -8,7 +8,8 @@ import LogoutPages from './pages/LogoutPage';
 import SignupPages from './pages/SignupPage';
 import AskPage from './pages/AskPage';
 import SearchQsPage from './pages/SearchQsPage';
-import { useEffect } from 'react';
+import EditPage from './pages/EditPage';
+import { useEffect, useState } from 'react';
 import { setId, setIsLoggedin, setToken } from './redux/userSlice';
 import { useDispatch } from 'react-redux';
 import AnswerTheQuestions from './pages/AnswerQEPage';
@@ -30,6 +31,9 @@ function App() {
     }
   }, []);
 
+  const [query, setQuery] = useState('');
+  console.log(query);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -40,8 +44,13 @@ function App() {
         <Route path="/login" element={<LoginPages />} />
         <Route path="/logout" element={<LogoutPages />} />
         <Route path="/signup" element={<SignupPages />} />
+        {/* <Route
+          path={'/AnswerTheQuestions?q=' + query + '/edit'}
+          element={<EditPage setQuery={setQuery} />}
+        /> */}
         <Route path="/AnswerTheQuestions" element={<AnswerTheQuestions />} />
         <Route path="/ask" element={<AskPage />} />
+        <Route path="/edit" element={<EditPage />} />
       </Routes>
     </BrowserRouter>
   );
