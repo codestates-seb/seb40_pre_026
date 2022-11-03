@@ -463,6 +463,3 @@ function Nav({ ModalItem, dropdownIsOpen }) {
   );
 }
 export default Nav;
-
-{
-  /* <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn> */

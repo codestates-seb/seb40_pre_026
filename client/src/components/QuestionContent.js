@@ -7,7 +7,7 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { BasicButton, MyQuestionButton } from './BasicButton';
 import axios from 'axios';
-import url from '../url';
+import { url } from '../url';
 
 const QuestionContain = styled.div`
   padding-top: 60px;

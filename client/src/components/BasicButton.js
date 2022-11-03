@@ -3,7 +3,6 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import { url } from '../url';
-import { useNavigate } from 'react-router-dom';
 
 const ButtonContain = styled.div`
   button {

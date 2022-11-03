@@ -29,5 +29,10 @@ module.exports = {
     ],
     'import/no-unresolved': 'off',
     'react/prop-types': 'off',
+    'no-nested-ternary': 0,
+    'react/jsx-props-no-spreading': 'off',
+    'import/order': 0,
+    'import/prefer-default-export': 0,
+    'import/named': 0,
   },
 };

@@ -5,7 +5,7 @@ import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import url from '../url';
+import { url } from '../url';
 
 const Container = styled.div`
   display: flex;
