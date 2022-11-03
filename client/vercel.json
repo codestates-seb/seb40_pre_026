@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      {
+        "source": "/api/:path*",
+        "destination": "https://5a75-218-158-78-87.jp.ngrok.io/:path*"
+      }
+    ]
+  }
