@@ -5,6 +5,9 @@ const initialState = {
   isLoggedIn: false,
   token: -1,
   searchKeyword: -1,
+  title: '',
+  content: '',
+  tags: [],
 };
 
 const userSlice = createSlice({
@@ -23,14 +26,30 @@ const userSlice = createSlice({
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload;
     },
+    setTitle: (state, action) => {
+      state.title = action.payload;
+    },
+    setContent: (state, action) => {
+      state.content = action.payload;
+    },
+    setTags: (state, action) => {
+      state.tags = [...action.payload];
+    },
   },
 });
 
 // 1. 페이지 로딩 시 로그인 여부는 토큰으로 확인
 //
 
-export const { setId, setIsLoggedin, setToken, setSearchKeyword } =
-  userSlice.actions;
+export const {
+  setId,
+  setIsLoggedin,
+  setToken,
+  setSearchKeyword,
+  setTitle,
+  setContent,
+  setTags,
+} = userSlice.actions;
 export default userSlice.reducer;
 
 // extraReducers: (builder) => {
