@@ -11,6 +11,7 @@ import SearchQsPage from './pages/SearchQsPage';
 import { useEffect } from 'react';
 import { setId, setIsLoggedin, setToken } from './redux/userSlice';
 import { useDispatch } from 'react-redux';
+import AnswerTheQuestions from './pages/AnswerQEPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
         <Route path="/logout" element={<LogoutPages />} />
         <Route path="/signup" element={<SignupPages />} />
         <Route path="/AnswerTheQuestions" element={<AnswerTheQuestions />} />
+        <Route path="/ask" element={<AskPage />} />
       </Routes>
     </BrowserRouter>
   );

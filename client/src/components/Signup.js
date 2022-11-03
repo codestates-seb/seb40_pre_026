@@ -179,7 +179,7 @@ const Signup = () => {
     };
 
     axios
-      .post(url + 'users/sign', signupInfo)
+      .post(url + '/users/sign', signupInfo)
       .then((res) => {
         console.log('Sign Up!');
         console.log(res.data);

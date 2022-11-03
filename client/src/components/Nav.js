@@ -23,7 +23,7 @@ import {
 } from '../redux/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import url from '../url';
+import { url } from '../url';
 
 const NavContainer = styled.div`
   /* box-sizing: border-box; */

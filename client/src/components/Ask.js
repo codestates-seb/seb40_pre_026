@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import stackoverflow_logo from '../image/logo-stackoverflow.png';
 import { useNavigate } from 'react-router-dom';
 import { Editor } from '@toast-ui/react-editor';
-import url from '../url';
+import { url } from '../url';
 import useInput from './useInput';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';

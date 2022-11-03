@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchKeywordSelector } from '../redux/hooks';
 import { setSearchKeyword } from '../redux/userSlice';
-import url from '../url';
+import { url } from '../url';
 import axios from 'axios';
 
 const RenderContain = styled.div`

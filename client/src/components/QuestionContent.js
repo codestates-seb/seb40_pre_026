@@ -182,7 +182,8 @@ const MainQuestions = ({ questionI }) => {
       return;
     }
 
-    // if (jwtToken === -1 || emailId === -1) return;
+    if (jwtToken === -1 || emailId === -1)
+      return alert('로그인 후 이용해주세요.');
 
     await axios
       .post(
@@ -210,15 +211,18 @@ const MainQuestions = ({ questionI }) => {
                 <SearchBtn> Ask Question</SearchBtn>
               </RenderHead>
               <RenderSubHead>
-                <RenderSubTxt>Asked</RenderSubTxt>
-                <RenderSubData>Today</RenderSubData>
+                {/* <RenderSubTxt>Asked</RenderSubTxt>
+                <RenderSubData>{x.question.created_at}</RenderSubData>
                 <RenderSubTxt>Modified</RenderSubTxt>
-                <RenderSubData>Today</RenderSubData>
-                <RenderSubTxt>Viewed</RenderSubTxt>
-                <RenderSubData>2 times</RenderSubData>
+                <RenderSubData>{x.question.updated_at}</RenderSubData> */}
+                {/* <RenderSubTxt>Viewed</RenderSubTxt>
+                <RenderSubData>{x.question.totalViewed} times</RenderSubData> */}
               </RenderSubHead>
               <Line />
-              <QuestionContent>{x.question.content}</QuestionContent>
+              <QuestionContent
+                key={x}
+                dangerouslySetInnerHTML={{ __html: x.question.content }}
+              ></QuestionContent>
               <TagContain>
                 {/* {console.log(qData.question.tags)}
     {qData.question.tags &&
@@ -247,7 +251,7 @@ const MainQuestions = ({ questionI }) => {
         })}
       <QuestionTitle>Your Answer</QuestionTitle>
       <Editor
-        initialValue="<strong>Testing</strong>" // 초기 입력값
+        initialValue="Input here" // 초기 입력값
         previewStyle="vertical" // vertical로 설정시 미리보기 화면 분할가능
         height="300px"
         initialEditType="markdown" // markdown or wysiwyg
