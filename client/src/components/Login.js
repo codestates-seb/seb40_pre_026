@@ -1,5 +1,3 @@
-RawBlame;
-
 import { React, useState } from 'react';
 import styled from 'styled-components';
 import icon from '../image/github.png';
