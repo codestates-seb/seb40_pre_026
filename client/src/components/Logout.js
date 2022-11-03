@@ -111,7 +111,7 @@ const Logout = () => {
     return axios
       .post(
         url + '/users/logout',
-        { email: loggedInEmail },
+        { email: email },
         {
           headers: {
             Authorization: `Bearer ${loggedInToken}`,

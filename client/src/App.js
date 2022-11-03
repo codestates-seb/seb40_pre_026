@@ -8,6 +8,7 @@ import LogoutPages from './pages/LogoutPage';
 import SignupPages from './pages/SignupPage';
 import AskPage from './pages/AskPage';
 import SearchQsPage from './pages/SearchQsPage';
+import AnswerTheQuestions from './pages/AnswerQEPage';
 import { useEffect } from 'react';
 import { setId, setIsLoggedin, setToken } from './redux/userSlice';
 import { useDispatch } from 'react-redux';
@@ -39,6 +40,7 @@ function App() {
         <Route path="/login" element={<LoginPages />} />
         <Route path="/logout" element={<LogoutPages />} />
         <Route path="/signup" element={<SignupPages />} />
+        <Route path="/AnswerTheQuestions" element={<AnswerTheQuestions />} />
         <Route path="/ask" element={<AskPage />} />
       </Routes>
     </BrowserRouter>

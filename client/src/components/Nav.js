@@ -10,15 +10,8 @@ import {
   faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link } from 'react-router-dom';
-import { setId, setIsLoggedin, setToken } from '../redux/userSlice';
-import {
-  userIdSelector,
-  isLoggedInSelector,
-  jwtTokenSelector,
-} from '../redux/hooks';
+
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import url from '../url';
 
 const NavContainer = styled.div`
   /* box-sizing: border-box; */
