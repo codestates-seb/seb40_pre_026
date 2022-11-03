@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import Pagination from './Pagination';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import url from '../url';
+import { url } from '../url';
+import { userIdSelector } from '../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const RenderContain = styled.div`
   padding-top: 72px;
