@@ -166,7 +166,6 @@ const SearchItem = styled.div`
   padding: 0px;
   width: 700px;
   height: 180px;
-
   background-color: white;
   border-color: black;
   border-radius: 7px 7px 0px 0px;
@@ -197,7 +196,6 @@ const SearchItem_bottom = styled.div`
   box-shadow: 0px 0px 0px 2px hsl(210, 8%, 90%);
   border-top: 0px;
   border-radius: 0px 0px 7px 7px;
-
   .questionBtn {
     background-color: hsl(205, 46%, 92%);
     color: hsl(205, 47%, 42%);
@@ -468,4 +466,3 @@ export default Nav;
 
 {
   /* <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn> */
-}

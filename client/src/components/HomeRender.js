@@ -47,7 +47,6 @@ const SearchBtn = styled.button`
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   cursor: pointer;
   /* user-select: none; */
-
   &:hover {
     background-color: hsl(205, 47%, 42%);
     font-size: 13px;
@@ -187,7 +186,6 @@ const Tags = styled.button`
   color: black;
   font-size: 13px;
   border: none;
-
   &:hover {
     background-color: #d0e2f0;
   }
@@ -199,7 +197,6 @@ const User = styled.div`
   font-size: 15px;
   margin-right: 10px;
   color: gray;
-
   .user {
     margin-right: 10px;
   }

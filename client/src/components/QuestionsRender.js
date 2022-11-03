@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Pagination from './Pagination';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../url';
@@ -255,6 +256,14 @@ const BottomContents = styled.div`
   justify-content: space-between;
 `;
 
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
 const QuestionRenderPage = ({ modalCloseHandler }) => {
   const email = useSelector(userIdSelector);
   const navigate = useNavigate();
@@ -296,6 +305,9 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
     getData();
     console.log('모든질문 조회');
   }, []);
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   const NavigateAsk = () => {
     if (email < 0) {
@@ -332,7 +344,7 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
         <MainRenderSpace>
           <MainRender>
             {qData &&
-              qData.map((question, idx) => {
+              qData.slice(offset, offset + limit).map((question, idx) => {
                 return (
                   <ContentsBox key={idx}>
                     <RenderLeft>
@@ -371,22 +383,14 @@ const QuestionRenderPage = ({ modalCloseHandler }) => {
               })}
           </MainRender>
           <BottomContents>
-            <PageNation>
-              <div className="s-pagination">
-                <span
-                  className="s-pagination--item is-selected"
-                  aria-current="page"
-                >
-                  1
-                </span>
-                <a className="s-pagination--item" href="…">
-                  2
-                </a>
-                <a className="s-pagination--item" href="…">
-                  3
-                </a>
-              </div>
-            </PageNation>
+            <Layout>
+              <Pagination
+                total={qData.length}
+                limit={limit}
+                page={page}
+                setPage={setPage}
+              ></Pagination>
+            </Layout>
           </BottomContents>
         </MainRenderSpace>
       </RightSide>
