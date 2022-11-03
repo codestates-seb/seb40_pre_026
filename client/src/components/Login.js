@@ -1,3 +1,5 @@
+RawBlame;
+
 import { React, useState } from 'react';
 import styled from 'styled-components';
 import icon from '../image/github.png';
@@ -10,7 +12,8 @@ import {
 } from '../redux/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import url from '../url';
+import { url } from '../url';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -152,6 +155,7 @@ const Login = () => {
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
@@ -182,6 +186,10 @@ const Login = () => {
         dispatch(setId(res.data.body.email));
         dispatch(setToken(res.data.body.tokenInfo.accessToken));
         dispatch(setIsLoggedin(true));
+      })
+      .then((_) => {
+        alert('Login success');
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);
@@ -233,7 +241,14 @@ const Login = () => {
       </Card>
 
       <P>
-        Don&apos;t have an account? <A href="url">Sign up</A>
+        Don&apos;t have an account?{' '}
+        <A
+          onClick={() => {
+            navigate('/signup');
+          }}
+        >
+          Sign up
+        </A>
       </P>
     </Container>
   );

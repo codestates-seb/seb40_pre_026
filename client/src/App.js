@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainPage from './pages/MainPage';
 import QuestionsPage from './pages/QuestionsPage';
 import TagsPages from './pages/TagsPage';
@@ -8,10 +8,10 @@ import LogoutPages from './pages/LogoutPage';
 import SignupPages from './pages/SignupPage';
 import AskPage from './pages/AskPage';
 import SearchQsPage from './pages/SearchQsPage';
-import AnswerTheQuestions from './pages/AnswerQEPage';
-import { useEffect } from 'react';
+import EditPage from './pages/EditPage';
 import { setId, setIsLoggedin, setToken } from './redux/userSlice';
 import { useDispatch } from 'react-redux';
+import AnswerTheQuestions from './pages/AnswerQEPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +30,8 @@ function App() {
     }
   }, []);
 
+  const [query, setQuery] = useState('');
+
   return (
     <BrowserRouter>
       <Routes>
@@ -40,8 +42,13 @@ function App() {
         <Route path="/login" element={<LoginPages />} />
         <Route path="/logout" element={<LogoutPages />} />
         <Route path="/signup" element={<SignupPages />} />
+        {/* <Route
+          path={'/AnswerTheQuestions?q=' + query + '/edit'}
+          element={<EditPage setQuery={setQuery} />}
+        /> */}
         <Route path="/AnswerTheQuestions" element={<AnswerTheQuestions />} />
         <Route path="/ask" element={<AskPage />} />
+        <Route path="/edit" element={<EditPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -10,8 +10,20 @@ import {
   faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link } from 'react-router-dom';
-
+import {
+  setId,
+  setIsLoggedin,
+  setToken,
+  setSearchKeyword,
+} from '../redux/userSlice';
+import {
+  userIdSelector,
+  isLoggedInSelector,
+  jwtTokenSelector,
+} from '../redux/hooks';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { url } from '../url';
 
 const NavContainer = styled.div`
   /* box-sizing: border-box; */
@@ -154,7 +166,6 @@ const SearchItem = styled.div`
   padding: 0px;
   width: 700px;
   height: 180px;
-
   background-color: white;
   border-color: black;
   border-radius: 7px 7px 0px 0px;
@@ -185,7 +196,6 @@ const SearchItem_bottom = styled.div`
   box-shadow: 0px 0px 0px 2px hsl(210, 8%, 90%);
   border-top: 0px;
   border-radius: 0px 0px 7px 7px;
-
   .questionBtn {
     background-color: hsl(205, 46%, 92%);
     color: hsl(205, 47%, 42%);
@@ -304,6 +314,15 @@ function Nav({ ModalItem, dropdownIsOpen }) {
   //   setBarOn(false);
   // };
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchInput, setSearchInput] = useState('');
+
+  const search = () => {
+    if (searchInput === '') return;
+    dispatch(setSearchKeyword(searchInput));
+    window.sessionStorage.setItem('keyword', searchInput);
+    navigate('/search');
+  };
 
   // 토큰을 로컬스토리지에서 get
   //window.localStorage.getItem('jwtToken');
@@ -312,6 +331,15 @@ function Nav({ ModalItem, dropdownIsOpen }) {
 
   // 로그인 확인
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  // const jwtTokenSelector = (state) => state.user.token;
+
+  const Token = window.localStorage.getItem('jwtToken');
+
+  const logoutHandler = () => {
+    dispatch(setToken(-1));
+    localStorage.removeItem(Token);
+    navigate('/');
+  };
 
   return (
     <NavContainer>
@@ -340,6 +368,8 @@ function Nav({ ModalItem, dropdownIsOpen }) {
             type="text"
             placeholder="Search..."
             onClick={ModalItem}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={(e) => (e.key === 'Enter' ? search() : null)}
           />
           {dropdownIsOpen ? (
             <SearchItemContainer>
@@ -436,4 +466,3 @@ export default Nav;
 
 {
   /* <LogoutBtn onClick={(e) => navigate('/logout')}>LogOut</LogoutBtn> */
-}
