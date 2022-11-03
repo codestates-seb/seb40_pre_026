@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { userIdSelector, jwtTokenSelector } from '../redux/hooks';
+import { setTitle, setContent, setTags } from '../redux/userSlice';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -135,6 +136,7 @@ const RenderHomeHead = styled.h1`
 `;
 
 const MainQuestions = ({ questionI }) => {
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
   const [qData, setQData] = useState();
   const [email, setEmail] = useState('');
@@ -160,6 +162,10 @@ const MainQuestions = ({ questionI }) => {
       .then((res) => {
         setQData([res.data.body]);
         setEmail(res.data.body.question.user.email);
+        // dispatch(setId(res.data.body.email));
+        dispatch(setTitle(res.data.body.question.title));
+        dispatch(setContent(res.data.body.question.content));
+        dispatch(setTags(res.data.body.tags));
       })
       .catch((err) => console.log(err));
   };
@@ -225,12 +231,11 @@ const MainQuestions = ({ questionI }) => {
                 dangerouslySetInnerHTML={{ __html: x.question.content }}
               ></QuestionContent>
               <TagContain>
-                {/* {console.log(qData.question.tags)}
-    {qData.question.tags &&
-      qData.question.tags.map((tag, idx) => {
-        console.log('a');
-        return <Tags key={idx}>{tag}</Tags>;
-      })} */}
+                {console.log(x.question.tags)}
+                {x.tags &&
+                  x.tags.map((tag, idx) => {
+                    return <Tags key={tag}>{tag}</Tags>;
+                  })}
               </TagContain>
               {email !== emailId ? (
                 <BasicButton />
