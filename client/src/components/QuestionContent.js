@@ -139,13 +139,14 @@ const MainQuestions = ({ questionI }) => {
   const [qData, setQData] = useState();
   const [email, setEmail] = useState('');
   const editorRef = React.createRef();
+  const jwtToken = useSelector(jwtTokenSelector);
+  const emailId = useSelector(userIdSelector);
+
   const onChange = () => {
     const data = editorRef.current.getInstance().getHTML(); // getHTML or getMarkdown
     setText(data);
     console.log(text);
   };
-  const jwtToken = useSelector(jwtTokenSelector);
-  const emailId = useSelector(userIdSelector);
 
   const header = {
     headers: {
@@ -231,7 +232,15 @@ const MainQuestions = ({ questionI }) => {
         return <Tags key={idx}>{tag}</Tags>;
       })} */}
               </TagContain>
-              {email !== emailId ? <BasicButton /> : <MyQuestionButton />}
+              {email !== emailId ? (
+                <BasicButton />
+              ) : (
+                <MyQuestionButton
+                  questionI={questionI}
+                  email={email}
+                  jwtToken={jwtToken}
+                />
+              )}
             </>
           );
         })}

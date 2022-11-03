@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../url';
+import { userIdSelector } from '../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const RenderContain = styled.div`
   display: flex;
@@ -206,6 +208,7 @@ const User = styled.div`
 const RenderPage = ({ modalCloseHandler }) => {
   const navigate = useNavigate();
   const [qData, setQData] = useState([]);
+  const email = useSelector(userIdSelector);
 
   function Timediff(writtenTime) {
     const now = new Date();
@@ -241,13 +244,22 @@ const RenderPage = ({ modalCloseHandler }) => {
     console.log('모든질문 조회');
   }, []);
 
+  const NavigateAsk = () => {
+    if (email < 0) {
+      alert('로그인 후 이용해주세요.');
+    } else {
+      navigate('/ask');
+    }
+    console.log(email);
+  };
+
   return (
     <RenderContain onClick={modalCloseHandler}>
       <RightSide>
         {' '}
         <RenderHead>
           <RenderHomeHead>Top Questions</RenderHomeHead>
-          <SearchBtn onClick={(e) => navigate('/ask')}> Ask Question</SearchBtn>
+          <SearchBtn onClick={NavigateAsk}> Ask Question</SearchBtn>
         </RenderHead>
         <RenderSubHead>
           <LeftOptionBtn>interesting</LeftOptionBtn>
