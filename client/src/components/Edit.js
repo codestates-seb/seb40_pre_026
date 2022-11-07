@@ -181,6 +181,7 @@ const Contain = styled.div`
 `;
 
 const Edit = ({ questionI }) => {
+  const navigate = useNavigate();
   console.log('Edit');
   const jwtToken = useSelector(jwtTokenSelector);
   const emailId = useSelector(userIdSelector);
@@ -197,24 +198,28 @@ const Edit = ({ questionI }) => {
 
   const submit = async (questionI) => {
     console.log(questionI);
-    // if (titleValue === '' || data === '<p><br></p>') {
-    //   alert('Title and body field required.');
-    //   return;
-    // }
+    if (titleValue === '' || data === '<p><br></p>') {
+      alert('Title and body field required.');
+      return;
+    }
 
-    // if (jwtToken === -1 || emailId === -1) return alert('edits failed');
+    if (jwtToken === -1 || emailId === -1) {
+      alert('edits failed');
+      return;
+    }
 
-    // await axios
-    //   .patch(
-    //     url + `/questions/${questionI}`,
-    //     { email: emailId, title: titleValue, content: data, tags: tagList },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${jwtToken}`,
-    //       },
-    //     }
-    //   )
-    //   .then((_) => alert('Your question was successfully revised!'));
+    await axios
+      .patch(
+        url + `/questions/${questionI}`,
+        { email: emailId, title: titleValue, content: data, tags: tagList },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      )
+      .then((_) => alert('Your question was successfully revised!'))
+      .then(navigate(`/AnswerTheQuestions?q=${questionI}`));
   };
 
   // tagsInput에 태그 입력 후 쉼표 입력

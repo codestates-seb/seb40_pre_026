@@ -254,7 +254,7 @@ const Ask = () => {
       )
       .then((_) => {
         alert('Your question was successfully submitted!');
-        navigate(`/questions/${questionI}`);
+        navigate(`/questions`);
       });
   };
 
