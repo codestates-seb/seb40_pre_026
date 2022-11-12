@@ -8,12 +8,12 @@
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/nada1221"><img src="https://avatars.githubusercontent.com/u/104189107?v=4" width="100px;" alt=""/><br /><sub><b>고동욱</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=nada1221" title="Documentation" >📖</a><a href="https://github.com/haileyport" title="Documentation">🥂</a></td>
+            <td align="center"><a href="https://github.com/kosmos992"><img src="https://avatars.githubusercontent.com/u/81802993?v=4" width="100px;" alt=""/><br /><sub><b>구예찬</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=kosmos992" title="Documentation">📖</a></td>
       <td align="center"><a href="https://github.com/Jaihun-Kim"><img src="https://avatars.githubusercontent.com/u/107912376?v=4" width="100px;" alt=""/><br /><sub><b>김재훈</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=Jaihun-Kim" title="Documentation">📖</a></td>
-      <td align="center"><a href="https://github.com/jioneee"><img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="100px;" alt=""/><br /><sub><b>이지원</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=jioneee" title="Documentation">📖</a></td>
     </tr>
     <tr>
+            <td align="center"><a href="https://github.com/jioneee"><img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="100px;" alt=""/><br /><sub><b>이지원</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=jioneee" title="Documentation">📖</a></td>
       <td align="center"><a href="https://github.com/JoHyunho-clover"><img src="https://avatars.githubusercontent.com/u/78728072?v=4" width="100px;" alt=""/><br /><sub><b>조현호</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=JoHyunho-clover" title="Documentation">📖</a></td>
-      <td align="center"><a href="https://github.com/kosmos992"><img src="https://avatars.githubusercontent.com/u/81802993?v=4" width="100px;" alt=""/><br /><sub><b>구예찬</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=kosmos992" title="Documentation">📖</a></td>
       <td align="center"><a href="https://github.com/YeryunJung"><img src="https://avatars.githubusercontent.com/u/103527404?v=4" width="100px;" alt=""/><br /><sub><b>정예륜</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=YeryunJung" title="Documentation">📖</a></td>
     </tr>
 
