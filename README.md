@@ -14,11 +14,9 @@
     <tr>
       <td align="center"><a href="https://github.com/JoHyunho-clover"><img src="https://avatars.githubusercontent.com/u/78728072?v=4" width="100px;" alt=""/><br /><sub><b>조현호</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=JoHyunho-clover" title="Documentation">📖</a></td>
       <td align="center"><a href="https://github.com/kosmos992"><img src="https://avatars.githubusercontent.com/u/81802993?v=4" width="100px;" alt=""/><br /><sub><b>구예찬</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=kosmos992" title="Documentation">📖</a></td>
-      <td align="center"><a href="https://github.com/redchicken97"><img src="https://avatars.githubusercontent.com/u/108041993?v=4" width="100px;" alt=""/><br /><sub><b>이하빈</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=redchicken97" title="Documentation">📖</a></td>
-    </tr>
-    <tr>
       <td align="center"><a href="https://github.com/YeryunJung"><img src="https://avatars.githubusercontent.com/u/103527404?v=4" width="100px;" alt=""/><br /><sub><b>정예륜</b></sub><br /></a><br /><a href="https://github.com/codestates-seb/seb40_pre_026/commits?author=YeryunJung" title="Documentation">📖</a></td>
-     </tr>
+    </tr>
+
   </tbody>
 </table>
 
